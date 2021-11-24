@@ -1,0 +1,15 @@
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\bin\Debug\net5.0\cadastro.domain.deps.json
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\bin\Debug\net5.0\cadastro.domain.dll
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\bin\Debug\net5.0\ref\cadastro.domain.dll
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\bin\Debug\net5.0\cadastro.domain.pdb
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\bin\Debug\net5.0\cadastro.cross.dll
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\bin\Debug\net5.0\cadastro.cross.pdb
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.csproj.AssemblyReference.cache
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.AssemblyInfoInputs.cache
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.AssemblyInfo.cs
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.csproj.CoreCompileInputs.cache
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.csproj.CopyComplete
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.dll
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\ref\cadastro.domain.dll
+C:\Users\Sandr\source\repos\cadastroCliente\cadastro.domain\obj\Debug\net5.0\cadastro.domain.pdb
