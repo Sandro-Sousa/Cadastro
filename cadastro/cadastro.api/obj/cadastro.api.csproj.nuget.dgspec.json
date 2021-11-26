@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.api\\cadastro.api.csproj": {}
+    "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.api\\cadastro.api.csproj": {
+    "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.api\\cadastro.api.csproj",
+        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj",
         "projectName": "cadastro.api",
-        "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.api\\cadastro.api.csproj",
+        "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj",
         "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.api\\obj\\",
+        "outputPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,11 +32,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
               },
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.service\\cadastro.service.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.service\\cadastro.service.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj"
               }
             }
           }
@@ -51,9 +51,37 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "Swashbuckle.AspNetCore.Annotations": {
+              "target": "Package",
+              "version": "[6.2.3, )"
             }
           },
           "imports": [
@@ -78,14 +106,14 @@
         }
       }
     },
-    "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj": {
+    "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj",
+        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj",
         "projectName": "cadastro.cross",
-        "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj",
+        "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj",
         "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\obj\\",
+        "outputPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -162,14 +190,14 @@
         }
       }
     },
-    "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj": {
+    "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj",
+        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj",
         "projectName": "cadastro.domain",
-        "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj",
+        "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj",
         "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\obj\\",
+        "outputPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -190,8 +218,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
               }
             }
           }
@@ -224,14 +252,14 @@
         }
       }
     },
-    "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.repository\\cadastro.repository.csproj": {
+    "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.repository\\cadastro.repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.repository\\cadastro.repository.csproj",
+        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.repository\\cadastro.repository.csproj",
         "projectName": "cadastro.repository",
-        "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.repository\\cadastro.repository.csproj",
+        "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.repository\\cadastro.repository.csproj",
         "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.repository\\obj\\",
+        "outputPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -252,11 +280,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
               },
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj"
               }
             }
           }
@@ -270,6 +298,20 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -289,14 +331,14 @@
         }
       }
     },
-    "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.service\\cadastro.service.csproj": {
+    "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.service\\cadastro.service.csproj",
+        "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj",
         "projectName": "cadastro.service",
-        "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.service\\cadastro.service.csproj",
+        "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj",
         "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.service\\obj\\",
+        "outputPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -317,14 +359,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.cross\\cadastro.cross.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
               },
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj"
               },
-              "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.repository\\cadastro.repository.csproj": {
-                "projectPath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.repository\\cadastro.repository.csproj"
+              "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.repository\\cadastro.repository.csproj": {
+                "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.repository\\cadastro.repository.csproj"
               }
             }
           }

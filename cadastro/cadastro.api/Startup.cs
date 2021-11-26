@@ -1,16 +1,14 @@
+using cadastro.repository;
+using cadastro.repository.Interfaces;
+using cadastro.service;
+using cadastro.service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace cadastro.api
 {
@@ -32,6 +30,15 @@ namespace cadastro.api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "cadastro.api", Version = "v1" });
             });
+
+            // Auto Mapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //application
+            services.AddScoped<ICadastroService, CadastroService>();
+
+            //repository
+            services.AddScoped<IProcedure, Procedure>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
