@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ra6gq4EgsI3XgLrt9YX2WcKPyWUwToDjjLefbtYjaOiVgRVZovLF1IRsDjum/EqYtfQL/Vj3011j1XSKxTXOiQ==",
+  "dgSpecHash": "x9R6AMuRk95ED7vSfrB1y2SdU7gZFFGHqK6W3VTTEq8iE8ynvoyhLc/0t0lqfsnzGxvMeOCH1v4XM4g+TKlgIQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Sandr\\source\\repos\\cadastroCliente\\cadastro.domain\\cadastro.domain.csproj",
+  "projectFilePath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.domain\\cadastro.domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sandr\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",
     "C:\\Users\\Sandr\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

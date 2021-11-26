@@ -4,7 +4,7 @@ using System.IO;
 namespace velesemail.cross
 {
     public class AppSettings
-    {
+    { 
         private static AppSettings _appSettings;
         public string _appSettingValue { get; set; }
 

@@ -1,0 +1,153 @@
+USE [Cadastro]
+GO
+/****** Object:  Table [dbo].[Cliente]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cliente](
+	[IdCliente] [int] IDENTITY(1,1) NOT NULL,
+	[Nome] [varchar](50) NOT NULL,
+	[Cpf] [varchar](11) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdCliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Endereco]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Endereco](
+	[IdEndereco] [int] IDENTITY(1,1) NOT NULL,
+	[Logradouro] [varchar](60) NOT NULL,
+	[Bairro] [varchar](50) NOT NULL,
+	[Cidade] [varchar](50) NOT NULL,
+	[Uf] [varchar](2) NOT NULL,
+	[IdCliente] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdEndereco] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Telefone]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Telefone](
+	[IdTelefone] [int] IDENTITY(1,1) NOT NULL,
+	[Telefone] [varchar](11) NOT NULL,
+	[IdCliente] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdTelefone] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Endereco]  WITH CHECK ADD  CONSTRAINT [Fk_Endereco_Cliente] FOREIGN KEY([IdCliente])
+REFERENCES [dbo].[Cliente] ([IdCliente])
+GO
+ALTER TABLE [dbo].[Endereco] CHECK CONSTRAINT [Fk_Endereco_Cliente]
+GO
+ALTER TABLE [dbo].[Telefone]  WITH CHECK ADD  CONSTRAINT [Fk_Telefone_Cliente] FOREIGN KEY([IdCliente])
+REFERENCES [dbo].[Cliente] ([IdCliente])
+GO
+ALTER TABLE [dbo].[Telefone] CHECK CONSTRAINT [Fk_Telefone_Cliente]
+GO
+/****** Object:  StoredProcedure [dbo].[ClienteGetById]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create procedure [dbo].[ClienteGetById]
+(
+	@IdCliente int
+)
+as
+begin
+	select * from dbo.Cliente
+	where IdCliente = @IdCliente
+end
+GO
+/****** Object:  StoredProcedure [dbo].[ClienteInsert]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create procedure [dbo].[ClienteInsert]
+(
+	@Nome varchar(50),
+	@Cpf varchar(11)
+)
+as
+begin
+	declare @IdCliente bigint = null
+
+	insert into dbo.Cliente(Nome, Cpf)
+	 values
+		(@Nome, @Cpf)
+	set @IdCliente = SCOPE_IDENTITY()
+end
+GO
+/****** Object:  StoredProcedure [dbo].[EnderecoInsert]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [dbo].[EnderecoInsert]
+(
+	@Logradouro varchar(60),
+	@Bairro varchar(50),
+	@Cidade varchar (50),
+	@Uf varchar(2),
+	@IdCliente int
+)
+as
+begin
+	declare @IdEndereco bigint = null
+
+    insert into dbo.Endereco(Logradouro, Bairro, Cidade, Uf, IdCliente)
+	values(@Logradouro, @Bairro, @Cidade, @Uf, @IdCliente)
+
+	set @IdEndereco = SCOPE_IDENTITY()
+
+	select
+		t1.*
+	 from Endereco (nolock) t1
+	 where
+		t1.IdEndereco = @IdEndereco
+end
+GO
+/****** Object:  StoredProcedure [dbo].[TelefoneInsert]    Script Date: 26/11/2021 01:02:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [dbo].[TelefoneInsert]
+(
+	@Telefone varchar(11),
+	@IdCliente int
+)
+as
+begin
+	declare @IdTelefone bigint = null
+
+    insert into dbo.Telefone(Telefone, IdCliente)
+	values(@Telefone, @IdCliente)
+
+	set @IdTelefone = SCOPE_IDENTITY()
+
+	select
+		t1.*
+	 from Telefone (nolock) t1
+	 where
+		t1.IdTelefone = @IdTelefone
+end
+GO

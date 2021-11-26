@@ -8,8 +8,4 @@
     <ProjectReference Include="..\cadastro.cross\cadastro.cross.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
 </Project>

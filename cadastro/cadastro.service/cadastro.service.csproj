@@ -10,10 +10,4 @@
     <ProjectReference Include="..\cadastro.repository\cadastro.repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

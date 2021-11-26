@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\cadastro.cross\cadastro.cross.csproj" />
-    <ProjectReference Include="..\cadastro.domain\cadastro.domain.csproj" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\cadastro.cross\cadastro.cross.csproj" />
+    <ProjectReference Include="..\cadastro.domain\cadastro.domain.csproj" />
   </ItemGroup>
 
 </Project>
