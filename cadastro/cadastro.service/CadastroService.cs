@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using cadastro.domain.Entities;
 using cadastro.repository.Interfaces;
-using cadastro.service.DTOs;
 using cadastro.service.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace cadastro.service
             this._procedure = procedure;
         }
 
-        public async Task<ClienteEntity> ClientGetByIdService(int Id)
+        public async Task<ClienteDTO> ClientGetByIdService(int Id)
         {
             try
             {
@@ -29,7 +28,9 @@ namespace cadastro.service
 
                 if (user == null) throw new Exception("Id inválido(s).");
 
-                return user;
+                var result = this._mapper.Map<ClienteDTO>(user);
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -42,9 +43,11 @@ namespace cadastro.service
         {
             try
             {
-                var result = this._mapper.Map<ClienteEntity>(clienteDTO);
+                var data = this._mapper.Map<ClienteEntity>(clienteDTO);
 
-                var user = await this._procedure.ClientInsert(result);
+                var user = await this._procedure.ClientInsert(data);
+
+                var result = this._mapper.Map<ClienteDTO>(user);
 
                 if (user == null) throw new Exception("Dados Inválidos");
 

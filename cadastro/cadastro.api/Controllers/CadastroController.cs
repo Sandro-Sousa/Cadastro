@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
+using static cadastro.service.DTOs.ControllerCadastroDTO;
 
 namespace cadastro.api.Controllers
 {
@@ -23,7 +24,7 @@ namespace cadastro.api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "", null)]
         [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-        public async Task<ActionResult> CadastroCliente(ClienteEntity model)
+        public async Task<ActionResult> CadastroCliente(ClienteDTO model)
         {
             try
             {

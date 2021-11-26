@@ -6,8 +6,8 @@ namespace cadastro.service.Interfaces
 {
     public interface ICadastroService
     {
-        Task<ClienteEntity> ClientInsertService(ClienteEntity clienteEntity);
-        Task<ClienteEntity> ClientGetByIdService(int Id);
+        Task<ClienteDTO> ClientInsertService(ClienteDTO clienteEntity);
+        Task<ClienteDTO> ClientGetByIdService(int Id);
         Task<EnderecoEntity> EnderecoInsertService(EnderecoEntity enderecoEntity);
         Task<TelefoneEntity> TelefoneInsertService(TelefoneEntity telefoneEntity);
     }
