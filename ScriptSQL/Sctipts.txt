@@ -1,5 +1,6 @@
-USE [Cadastro]
-GO
+use Cadastro
+go
+
 
 /****** Object:  Table [dbo].[Cliente]    Script Date: 26/11/2021 01:10:35 ******/
 SET ANSI_NULLS ON
@@ -11,7 +12,7 @@ GO
 CREATE TABLE [dbo].[Cliente](
 	[IdCliente] [int] IDENTITY(1,1) NOT NULL,
 	[Nome] [varchar](50) NOT NULL,
-	[Cpf] [varchar](11) NOT NULL,
+	[Cpf] [varchar](11) unique NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[IdCliente] ASC
@@ -202,4 +203,3 @@ begin
 		t1.IdTelefone = @IdTelefone
 end
 GO
-
