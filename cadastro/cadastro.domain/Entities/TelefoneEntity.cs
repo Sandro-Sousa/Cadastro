@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace cadastro.domain.Entities
 {
-   public class TelefoneEntity
-    {
-        public string Telefone { get; set; }
-        public int IdCliente { get; set; }
-    }
+  public class TelefoneEntity
+  {
+    public string Telefone { get; set; }
+  }
 }

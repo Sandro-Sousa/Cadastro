@@ -20,15 +20,92 @@ namespace cadastro.api.Controllers
             this._cadastroService = cadastroService;
         }
 
-        [HttpPost("v1/CadastroCliente")]
+        [HttpGet("v1/ClienteGet")]
         [SwaggerResponse(StatusCodes.Status200OK, "", null)]
         [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-        public async Task<ActionResult> CadastroCliente(ClienteDTO model)
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
+        public async Task<ActionResult> ClienteGet()
         {
             try
             {
-                var result = await this._cadastroService.ClientInsertService(model);
+                var result = await this._cadastroService.ClienteGetAllService();
+                if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
+
+                return this.StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("v1/ClienteGetById{userid}")]
+        [SwaggerResponse(StatusCodes.Status200OK, "", null)]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
+        public async Task<ActionResult> ClienteGetById(int userid)
+        {
+            try
+            {
+                var result = await this._cadastroService.ClienteGetByIdService(userid);
+
+                if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
+
+                return this.StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("v1/InsertCliente")]
+        [SwaggerResponse(StatusCodes.Status200OK, "", null)]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
+        public async Task<ActionResult> InsertCliente(ClienteDTOInsert model)
+        {
+            try
+            {
+                var result = await this._cadastroService.ClienteInsertService(model);
+
+                return this.StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("v1/UpdateCliente")]
+        [SwaggerResponse(StatusCodes.Status200OK, "", null)]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
+        public async Task<ActionResult> UpdateCliente(ClienteDTO model)
+        {
+            try
+            {
+                var result = await this._cadastroService.ClienteUpdateService(model);
+
+                return this.StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("v1/ClienteDelete{userid}")]
+        [SwaggerResponse(StatusCodes.Status200OK, "", typeof(bool))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
+        public async Task<ActionResult> ClienteDelete(int userid)
+        {
+            try
+            {
+                var result = await this._cadastroService.ClienteDeleteService(userid);
+
+                if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
 
                 return this.StatusCode(StatusCodes.Status200OK, result);
             }

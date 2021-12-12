@@ -3,6 +3,7 @@ using cadastro.domain.Entities;
 using cadastro.repository.Interfaces;
 using cadastro.service.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static cadastro.service.DTOs.ControllerCadastroDTO;
 
@@ -13,18 +14,36 @@ namespace cadastro.service
         private readonly IMapper _mapper;
         private readonly IProcedure _procedure;
 
-        public CadastroService(IProcedure  procedure, IMapper mapper)
+        public CadastroService(IProcedure procedure, IMapper mapper)
         {
             this._mapper = mapper;
             this._procedure = procedure;
         }
 
-        public async Task<ClienteDTO> ClientGetByIdService(int Id)
+        public async Task<List<ClienteDTO>> ClienteGetAllService()
         {
             try
             {
+                var user = await this._procedure.ClienteGet();
 
-                var user = await this._procedure.ClientGetById(Id);
+                var result = this._mapper.Map<List<ClienteDTO>>(user);
+
+                if (user == null) throw new Exception("Dados Inválidos");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<ClienteDTO> ClienteGetByIdService(int Id)
+        {
+            try
+            {
+                var user = await this._procedure.ClienteGetById(Id);
 
                 if (user == null) throw new Exception("Id inválido(s).");
 
@@ -39,13 +58,34 @@ namespace cadastro.service
             }
         }
 
-        public async Task<ClienteDTO> ClientInsertService(ClienteDTO  clienteDTO)
+        public async Task<ClienteDTOInsert> ClienteInsertService(ClienteDTOInsert clienteDTO)
         {
             try
             {
                 var data = this._mapper.Map<ClienteEntity>(clienteDTO);
 
-                var user = await this._procedure.ClientInsert(data);
+                var user = await this._procedure.ClienteInsert(data);
+
+                var result = this._mapper.Map<ClienteDTOInsert>(user);
+
+                if (user == null) throw new Exception("Dados Inválidos");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<ClienteDTO> ClienteUpdateService(ClienteDTO clienteDTO)
+        {
+            try
+            {
+                var data = this._mapper.Map<ClienteEntity>(clienteDTO);
+
+                var user = await this._procedure.ClienteUpdate(data);
 
                 var result = this._mapper.Map<ClienteDTO>(user);
 
@@ -60,15 +100,29 @@ namespace cadastro.service
             }
         }
 
+        public async Task<bool> ClienteDeleteService(int Id)
+        {
+            if (Id < 0)
+            {
+                return false;
+            }
+            try
+            {
+                var result =  await this._procedure.ClienteDelete(Id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<EnderecoEntity> EnderecoInsertService(EnderecoEntity enderecoEntity)
         {
             try
             {
-                var userById = await this._procedure.ClientGetById(enderecoEntity.IdCliente);
 
                 var user = await this._procedure.EnderecoInsert(enderecoEntity);
-
-                user.IdCliente = userById.IdCliente;
 
                 if (user == null) throw new Exception("Dados Inválidos");
 
@@ -85,11 +139,7 @@ namespace cadastro.service
         {
             try
             {
-                var userById = await this._procedure.ClientGetById(telefoneEntity.IdCliente);
-
                 var user = await this._procedure.TelefoneInsert(telefoneEntity);
-
-                user.IdCliente = userById.IdCliente;
 
                 if (user == null) throw new Exception("Dados Inválidos");
 
