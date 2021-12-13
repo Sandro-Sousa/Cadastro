@@ -1,8 +1,7 @@
-use Cadastro
-go
+USE [Cadastro]
+GO
 
-
-/****** Object:  Table [dbo].[Cliente]    Script Date: 26/11/2021 01:10:35 ******/
+/****** Object:  Table [dbo].[Cliente]    Script Date: 13/12/2021 00:22:04 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,19 +11,24 @@ GO
 CREATE TABLE [dbo].[Cliente](
 	[IdCliente] [int] IDENTITY(1,1) NOT NULL,
 	[Nome] [varchar](50) NOT NULL,
-	[Cpf] [varchar](11) unique NOT NULL,
+	[Cpf] [varchar](11) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[IdCliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[Cpf] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
 
+
 USE [Cadastro]
 GO
 
-/****** Object:  Table [dbo].[Endereco]    Script Date: 26/11/2021 01:11:16 ******/
+/****** Object:  Table [dbo].[Endereco]    Script Date: 13/12/2021 00:23:24 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -47,6 +51,8 @@ GO
 
 ALTER TABLE [dbo].[Endereco]  WITH CHECK ADD  CONSTRAINT [Fk_Endereco_Cliente] FOREIGN KEY([IdCliente])
 REFERENCES [dbo].[Cliente] ([IdCliente])
+ON UPDATE CASCADE
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Endereco] CHECK CONSTRAINT [Fk_Endereco_Cliente]
@@ -56,7 +62,7 @@ GO
 USE [Cadastro]
 GO
 
-/****** Object:  Table [dbo].[Telefone]    Script Date: 26/11/2021 01:11:30 ******/
+/****** Object:  Table [dbo].[Telefone]    Script Date: 13/12/2021 00:23:41 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -65,9 +71,9 @@ GO
 
 CREATE TABLE [dbo].[Telefone](
 	[IdTelefone] [int] IDENTITY(1,1) NOT NULL,
-	[Telefone] [varchar](11) NOT NULL,
+	[Telefone] [varchar](12) NOT NULL,
 	[IdCliente] [int] NOT NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK__Telefone__9B8AC7A96DD3E07F] PRIMARY KEY CLUSTERED 
 (
 	[IdTelefone] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -76,16 +82,77 @@ GO
 
 ALTER TABLE [dbo].[Telefone]  WITH CHECK ADD  CONSTRAINT [Fk_Telefone_Cliente] FOREIGN KEY([IdCliente])
 REFERENCES [dbo].[Cliente] ([IdCliente])
+ON UPDATE CASCADE
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Telefone] CHECK CONSTRAINT [Fk_Telefone_Cliente]
 GO
 
 
+
+
+
+
+PROCEDURES
+
+
 USE [Cadastro]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ClienteGetById]    Script Date: 26/11/2021 01:11:48 ******/
+/****** Object:  StoredProcedure [dbo].[ClienteDelete]    Script Date: 13/12/2021 00:24:03 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE procedure [dbo].[ClienteDelete]
+(
+	@IdCliente int
+)
+as
+begin
+	delete from Cliente
+	where IdCliente = @IdCliente
+
+	delete from Endereco
+	where IdCliente = @IdCliente
+
+	delete from Telefone
+	where IdCliente = @IdCliente
+end
+GO
+
+
+
+
+USE [Cadastro]
+GO
+
+/****** Object:  StoredProcedure [dbo].[ClienteGet]    Script Date: 13/12/2021 00:24:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ClienteGet]
+as
+begin
+	select t1.*
+	from Cliente (nolock) t1
+end
+GO
+
+
+
+USE [Cadastro]
+GO
+
+/****** Object:  StoredProcedure [dbo].[ClienteGetById]    Script Date: 13/12/2021 00:24:33 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -105,10 +172,11 @@ GO
 
 
 
+
 USE [Cadastro]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ClienteInsert]    Script Date: 26/11/2021 01:12:04 ******/
+/****** Object:  StoredProcedure [dbo].[ClienteInsert]    Script Date: 13/12/2021 00:24:50 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -133,10 +201,49 @@ end
 GO
 
 
+
+
 USE [Cadastro]
 GO
 
-/****** Object:  StoredProcedure [dbo].[EnderecoInsert]    Script Date: 26/11/2021 01:12:19 ******/
+/****** Object:  StoredProcedure [dbo].[ClienteUpdate]    Script Date: 13/12/2021 00:24:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE procedure [dbo].[ClienteUpdate]
+(
+	@IdCliente int,
+	@Nome varchar(50),
+	@Cpf varchar(11)
+)
+as
+begin
+	update t1 set
+	t1.Nome = @Nome,
+	t1.Cpf = @Cpf
+	from Cliente t1 
+	where 
+		t1.IdCliente = @IdCliente
+
+	select
+		t1.*
+	from Cliente (nolock) t1
+	where
+		t1.IdCliente = @IdCliente
+end
+GO
+
+
+
+
+USE [Cadastro]
+GO
+
+/****** Object:  StoredProcedure [dbo].[EnderecoInsert]    Script Date: 13/12/2021 00:25:09 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -149,12 +256,14 @@ CREATE procedure [dbo].[EnderecoInsert]
 	@Logradouro varchar(60),
 	@Bairro varchar(50),
 	@Cidade varchar (50),
-	@Uf varchar(2),
-	@IdCliente int
+	@Uf varchar(2)
 )
 as
 begin
-	declare @IdEndereco bigint = null
+	declare @IdEndereco bigint = null,
+			@IdCliente int
+
+    select top 1 @IdCliente = IdCliente from dbo.Cliente order by IdCliente desc
 
     insert into dbo.Endereco(Logradouro, Bairro, Cidade, Uf, IdCliente)
 	values(@Logradouro, @Bairro, @Cidade, @Uf, @IdCliente)
@@ -171,10 +280,11 @@ GO
 
 
 
+
 USE [Cadastro]
 GO
 
-/****** Object:  StoredProcedure [dbo].[TelefoneInsert]    Script Date: 26/11/2021 01:12:29 ******/
+/****** Object:  StoredProcedure [dbo].[TelefoneInsert]    Script Date: 13/12/2021 00:25:19 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -184,12 +294,14 @@ GO
 
 CREATE procedure [dbo].[TelefoneInsert]
 (
-	@Telefone varchar(11),
-	@IdCliente int
+	@Telefone varchar(12)
 )
 as
 begin
-	declare @IdTelefone bigint = null
+	declare @IdTelefone bigint = null,
+			@IdCliente int
+
+	select top 1 @IdCliente = IdCliente from dbo.Cliente order by IdCliente desc
 
     insert into dbo.Telefone(Telefone, IdCliente)
 	values(@Telefone, @IdCliente)
@@ -203,3 +315,5 @@ begin
 		t1.IdTelefone = @IdTelefone
 end
 GO
+
+

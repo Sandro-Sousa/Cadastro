@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ClienteComponent from './components/ClienteComponent';
+import UpdateClienteComponent from './components/UpdateClienteComponent';
+import CreateClienteComponent from './components/CreateClienteComponent';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route exact path="/" component={ClienteComponent} />
+          <Route
+            path="/UpdateClienteComponent/:id"
+            component={UpdateClienteComponent}
+          />
+          <Route
+            path="/CreateClienteComponent"
+            component={CreateClienteComponent}
+          />
+        </div>
+      </Router>
+    );
+  }
 }
-
 export default App;
