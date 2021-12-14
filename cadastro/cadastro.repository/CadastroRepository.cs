@@ -10,35 +10,35 @@ using System.Threading.Tasks;
 
 namespace cadastro.repository
 {
-  public class Procedure : IProcedure
+  public class CadastroRepository : ICadastroRepository
   {
     private string _connectionString;
 
-    public Procedure()
+    public CadastroRepository()
     {
       this._connectionString = velesemail.cross.AppSettings.GetConnectionString("Cadastro");
     }
 
-    public async Task<List<ClienteEntity>> ClienteGet()
+    public async Task<List<Cliente>> ClienteGet()
     {
 
-      var resultado = new List<ClienteEntity>();
+      var resultado = new List<Cliente>();
 
       using (SqlConnection db = new SqlConnection(this._connectionString))
       {
-        var result = await db.QueryAsync<ClienteEntity>(
+        var result = await db.QueryAsync<Cliente>(
             "[ClienteGet]",
             commandType: CommandType.StoredProcedure);
 
         if (result != null)
         {
-          resultado = result.ToList<ClienteEntity>();
+          resultado = result.ToList<Cliente>();
         }
       }
       return (resultado);
     }
 
-    public async Task<ClienteEntity> ClienteGetById(int Id)
+    public async Task<Cliente> ClienteGetById(int Id)
     {
       var parametros = new DynamicParameters();
 
@@ -46,7 +46,7 @@ namespace cadastro.repository
 
       using (SqlConnection db = new SqlConnection(this._connectionString))
       {
-        var result = await db.QueryAsync<ClienteEntity>(
+        var result = await db.QueryAsync<Cliente>(
             "[ClienteGetById]",
             parametros,
             commandType: CommandType.StoredProcedure);
@@ -55,10 +55,10 @@ namespace cadastro.repository
       }
     }
 
-    public async Task<ClienteEntity> ClienteInsert(ClienteEntity clienteEntity)
+    public async Task<Cliente> ClienteInsert(Cliente clienteEntity)
     {
-      var retorno = new ClienteEntity();
-      var list = new List<ClienteEntity>();
+      var retorno = new Cliente();
+      var list = new List<Cliente>();
       var parametros = new DynamicParameters();
 
       try
@@ -68,14 +68,14 @@ namespace cadastro.repository
 
         using (SqlConnection db = new SqlConnection(this._connectionString))
         {
-          var result = await db.QueryAsync<ClienteEntity>(
+          var result = await db.QueryAsync<Cliente>(
               "[ClienteInsert]",
               parametros,
               commandType: CommandType.StoredProcedure);
 
           if (result != null)
           {
-            list = result.ToList<ClienteEntity>();
+            list = result.ToList<Cliente>();
           }
         }
 
@@ -95,10 +95,10 @@ namespace cadastro.repository
 
     }
 
-    public async Task<ClienteEntity> ClienteUpdate(ClienteEntity clienteEntity)
+    public async Task<Cliente> ClienteUpdate(Cliente clienteEntity)
     {
-      var retorno = new ClienteEntity();
-      var list = new List<ClienteEntity>();
+      var retorno = new Cliente();
+      var list = new List<Cliente>();
       var parametros = new DynamicParameters();
 
       try
@@ -109,14 +109,14 @@ namespace cadastro.repository
 
         using (SqlConnection db = new SqlConnection(this._connectionString))
         {
-          var result = await db.QueryAsync<ClienteEntity>(
+          var result = await db.QueryAsync<Cliente>(
               "[ClienteUpdate]",
               parametros,
               commandType: CommandType.StoredProcedure);
 
           if (result != null)
           {
-            list = result.ToList<ClienteEntity>();
+            list = result.ToList<Cliente>();
           }
         }
 
@@ -137,28 +137,28 @@ namespace cadastro.repository
 
     public async Task<bool> ClienteDelete(int Id)
     {
-        if(Id < 0)
-            {
-                return false;
-            }
+      if (Id < 0)
+      {
+        return false;
+      }
       var parametros = new DynamicParameters();
 
       parametros.Add(@"IdCliente", Id, DbType.Int32, ParameterDirection.Input, null);
 
       using (SqlConnection db = new SqlConnection(this._connectionString))
       {
-        var result = await db.QueryAsync<ClienteEntity>(
+        var result = await db.QueryAsync<Cliente>(
             "[ClienteDelete]",
             parametros,
             commandType: CommandType.StoredProcedure);
       }
-            return true;
+      return true;
     }
 
-    public async Task<EnderecoEntity> EnderecoInsert(EnderecoEntity enderecoEntity)
+    public async Task<Endereco> EnderecoInsert(Endereco enderecoEntity)
     {
-      var retorno = new EnderecoEntity();
-      var list = new List<EnderecoEntity>();
+      var retorno = new Endereco();
+      var list = new List<Endereco>();
       var parametros = new DynamicParameters();
 
       try
@@ -167,17 +167,18 @@ namespace cadastro.repository
         parametros.Add("@Bairro", enderecoEntity.Bairro, DbType.String, ParameterDirection.Input, null);
         parametros.Add("@Cidade", enderecoEntity.Cidade, DbType.String, ParameterDirection.Input, null);
         parametros.Add("@Uf", enderecoEntity.Uf, DbType.String, ParameterDirection.Input, null);
+        parametros.Add("@IdCliente", enderecoEntity.IdCliente, DbType.Int32, ParameterDirection.Input, null);
 
         using (SqlConnection db = new SqlConnection(this._connectionString))
         {
-          var result = await db.QueryAsync<EnderecoEntity>(
+          var result = await db.QueryAsync<Endereco>(
               "[EnderecoInsert]",
               parametros,
               commandType: CommandType.StoredProcedure);
 
           if (result != null)
           {
-            list = result.ToList<EnderecoEntity>();
+            list = result.ToList<Endereco>();
           }
         }
 
@@ -196,26 +197,28 @@ namespace cadastro.repository
       }
     }
 
-    public async Task<TelefoneEntity> TelefoneInsert(TelefoneEntity telefoneEntity)
+    public async Task<Telefone> TelefoneInsert(Telefone telefoneEntity)
     {
-      var retorno = new TelefoneEntity();
-      var list = new List<TelefoneEntity>();
+      var retorno = new Telefone();
+      var list = new List<Telefone>();
       var parametros = new DynamicParameters();
 
       try
       {
-        parametros.Add("@Telefone", telefoneEntity.Telefone, DbType.String, ParameterDirection.Input, null);
+        parametros.Add("@Numero", telefoneEntity.Numero, DbType.String, ParameterDirection.Input, null);
+
+        parametros.Add("@IdCliente", telefoneEntity.IdCliente, DbType.Int32, ParameterDirection.Input, null);
 
         using (SqlConnection db = new SqlConnection(this._connectionString))
         {
-          var result = await db.QueryAsync<TelefoneEntity>(
+          var result = await db.QueryAsync<Telefone>(
               "[TelefoneInsert]",
               parametros,
               commandType: CommandType.StoredProcedure);
 
           if (result != null)
           {
-            list = result.ToList<TelefoneEntity>();
+            list = result.ToList<Telefone>();
           }
         }
 

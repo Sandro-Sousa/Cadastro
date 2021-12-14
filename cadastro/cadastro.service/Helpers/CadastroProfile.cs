@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using cadastro.domain.Entities;
-using static cadastro.service.DTOs.ControllerCadastroDTO;
+using cadastro.service.DTOs;
 
 namespace cadastro.service.Helpers
 {
@@ -8,10 +8,10 @@ namespace cadastro.service.Helpers
     {
         public CadastroProfile()
         {
-            CreateMap<ClienteEntity, ClienteDTO>().ReverseMap();
-            CreateMap<ClienteEntity, ClienteDTOInsert>().ReverseMap();
-            CreateMap<EnderecoEntity, EnderecoDTO>().ReverseMap();
-            CreateMap<TelefoneEntity, TelefoneDTO>().ReverseMap();
+            CreateMap<Cliente, ClienteDTO>().ReverseMap();
+            CreateMap<Cliente, ClienteDTOInsert>().ReverseMap();
+            CreateMap<Endereco, EnderecoDTO>().ReverseMap();
+            CreateMap<Telefone, TelefoneDTO>().ReverseMap();
         }
     }
 }

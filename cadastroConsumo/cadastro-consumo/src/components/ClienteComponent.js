@@ -29,9 +29,9 @@ class ClienteComponent extends React.Component {
     event.preventDefault();
     if (window.confirm('Tem certeza que deseja excluir?')) {
       axios({
-        method: 'post',
+        method: 'delete',
         url:
-          'https://localhost:5001/api/cadastro/v1/ClienteDelete/' + idCliente,
+          'https://localhost:5001/api/cadastro/v1/clientedelete/' + idCliente,
       })
         .then(function (response) {
           console.log(response);

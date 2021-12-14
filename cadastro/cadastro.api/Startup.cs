@@ -52,7 +52,7 @@ namespace cadastro.api
             services.AddScoped<ICadastroService, CadastroService>();
 
             //repository
-            services.AddScoped<IProcedure, Procedure>();
+            services.AddScoped<ICadastroRepository, CadastroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

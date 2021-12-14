@@ -17,7 +17,7 @@ class UpdateClienteComponent extends React.Component {
   componentDidMount() {
     axios
       .get(
-        'https://localhost:5001/api/cadastro/v1/idCliente/id?=${idCliente}' +
+        'https://localhost:5001/api/cadastro/v1/clientegetbyid/' +
           this.props.match.params.idCliente,
       )
       .then((response) => response.data)
@@ -49,9 +49,9 @@ class UpdateClienteComponent extends React.Component {
     formData.append('cpf', this.state.email);
 
     axios({
-      method: 'post',
+      method: 'put',
       url:
-        'https://localhost:5001/api/cadastro/v1/UpdateCliente' +
+        'https://localhost:5001/api/cadastro/v1/updatecliente/' +
         this.props.match.params.idCliente,
       data: formData,
       config: { headers: { 'Content-Type': 'multipart/form-data' } },

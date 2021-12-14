@@ -1,18 +1,17 @@
-﻿using cadastro.domain.Entities;
+﻿using cadastro.service.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static cadastro.service.DTOs.ControllerCadastroDTO;
 
 namespace cadastro.service.Interfaces
 {
-  public interface ICadastroService
+    public interface ICadastroService
   {
     Task<List<ClienteDTO>> GetAll();
-    Task<ClienteDTO> ClienteGetByIdService(int Id);
-    Task<ClienteDTOInsert> ClienteInsertService(ClienteDTOInsert clienteEntity);
-    Task<ClienteDTO> ClienteUpdateService(ClienteDTO clienteDTO);
-    Task<bool> ClienteDeleteService(int Id);
-    Task<EnderecoEntity> EnderecoInsertService(EnderecoEntity enderecoEntity);
-    Task<TelefoneEntity> TelefoneInsertService(TelefoneEntity telefoneEntity);
+    Task<ClienteDTO> ClienteGetById(int Id);
+    Task<ClienteDTOInsert> ClienteInsert(ClienteDTOInsert clienteEntity);
+    Task<ClienteDTO> ClienteUpdate(ClienteDTO clienteDTO);
+    Task<bool> ClienteDelete(int Id);
+    Task<EnderecoDTO> EnderecoInsert(EnderecoDTO enderecoEntity);
+    Task<TelefoneDTO> TelefoneInsert(TelefoneDTO telefoneEntity);
   }
 }

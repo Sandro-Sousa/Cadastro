@@ -1,15 +1,14 @@
-﻿using cadastro.domain.Entities;
+﻿using cadastro.service.DTOs;
 using cadastro.service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
-using static cadastro.service.DTOs.ControllerCadastroDTO;
 
 namespace cadastro.api.Controllers
 {
-  [ApiController]
+    [ApiController]
   [Route("api/cadastro")]
   public class CadastroController : Controller
   {
@@ -39,7 +38,7 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpGet("v1/{id}")]
+    [HttpGet("v1/clientegetbyid/{id}")]
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
@@ -47,7 +46,7 @@ namespace cadastro.api.Controllers
     {
       try
       {
-        var result = await this._cadastroService.ClienteGetByIdService(id);
+        var result = await this._cadastroService.ClienteGetById(id);
 
         if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
 
@@ -59,15 +58,15 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpPost("v1/InsertCliente")]
+    [HttpPost("v1/insertcliente")]
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> InsertCliente(ClienteDTOInsert model)
+    public async Task<ActionResult> InsertCliente([FromBody] ClienteDTOInsert model)
     {
       try
       {
-        var result = await this._cadastroService.ClienteInsertService(model);
+        var result = await this._cadastroService.ClienteInsert(model);
 
         return this.StatusCode(StatusCodes.Status200OK, result);
       }
@@ -77,15 +76,19 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpPut("v1/UpdateCliente")]
+    [HttpPut("v1/updatecliente/{id}")]
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> UpdateCliente(ClienteDTO model)
+    public async Task<ActionResult> UpdateCliente(int id, [FromBody] ClienteDTO model)
     {
+            if(id != model.idCliente)
+            {
+                return BadRequest("Id Invalido");
+            }
       try
       {
-        var result = await this._cadastroService.ClienteUpdateService(model);
+        var result = await this._cadastroService.ClienteUpdate(model);
 
         return this.StatusCode(StatusCodes.Status200OK, result);
       }
@@ -95,7 +98,7 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpDelete("v1/ClienteDelete/{userid}")]
+    [HttpDelete("v1/clientedelete/{userid}")]
     [SwaggerResponse(StatusCodes.Status200OK, "", typeof(bool))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
@@ -103,7 +106,7 @@ namespace cadastro.api.Controllers
     {
       try
       {
-        var result = await this._cadastroService.ClienteDeleteService(userid);
+        var result = await this._cadastroService.ClienteDelete(userid);
 
         if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
 
@@ -115,15 +118,15 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpPost("v1/cadastroEndereco")]
+    [HttpPost("v1/cadastroendereco")]
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> CadastroEndereco(EnderecoEntity model)
+    public async Task<ActionResult> CadastroEndereco([FromBody] EnderecoDTO model)
     {
       try
       {
-        var result = await this._cadastroService.EnderecoInsertService(model);
+        var result = await this._cadastroService.EnderecoInsert(model);
 
         return this.StatusCode(StatusCodes.Status200OK, result);
       }
@@ -133,15 +136,15 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpPost("v1/cadastroTelefone")]
+    [HttpPost("v1/cadastrotelefone")]
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> CadastroTelefone(TelefoneEntity model)
+    public async Task<ActionResult> CadastroTelefone([FromBody] TelefoneDTO model)
     {
       try
       {
-        var result = await this._cadastroService.TelefoneInsertService(model);
+        var result = await this._cadastroService.TelefoneInsert(model);
 
         return this.StatusCode(StatusCodes.Status200OK, result);
       }
