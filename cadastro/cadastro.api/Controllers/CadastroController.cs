@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace cadastro.api.Controllers
 {
-    [ApiController]
+  [ApiController]
   [Route("api/cadastro")]
   public class CadastroController : Controller
   {
@@ -62,7 +62,7 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> InsertCliente([FromBody] ClienteDTOInsert model)
+    public async Task<ActionResult> InsertCliente(ClienteDTOInsert model)
     {
       try
       {
@@ -80,12 +80,12 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> UpdateCliente(int id, [FromBody] ClienteDTO model)
+    public async Task<ActionResult> UpdateCliente(int id, ClienteDTO model)
     {
-            if(id != model.idCliente)
-            {
-                return BadRequest("Id Invalido");
-            }
+      if (id != model.idCliente)
+      {
+        return BadRequest("Id Invalido");
+      }
       try
       {
         var result = await this._cadastroService.ClienteUpdate(model);
@@ -122,7 +122,7 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> CadastroEndereco([FromBody] EnderecoDTO model)
+    public async Task<ActionResult> CadastroEndereco(EnderecoDTO model)
     {
       try
       {
@@ -140,7 +140,7 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status200OK, "", null)]
     [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
-    public async Task<ActionResult> CadastroTelefone([FromBody] TelefoneDTO model)
+    public async Task<ActionResult> CadastroTelefone(TelefoneDTO model)
     {
       try
       {

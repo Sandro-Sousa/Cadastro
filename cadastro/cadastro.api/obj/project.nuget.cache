@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sgzExu4qHOb2PA78+ZxBMIHlKZmvQEogpGeHJ6ifJGFR2IISOpT4mFoDKbfqPVmyj043YWRBxb+6+T0qFmn4UA==",
+  "dgSpecHash": "PDX0RestMK+3yJoXCQnPEkJC51e9tKVgtvhgk5/tmJPAjO/rsLErKSKo8W5Ucc9yjJNnvZeHIjMr2dFYt9+RGw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj",
+  "projectFilePath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sandr\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Sandr\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

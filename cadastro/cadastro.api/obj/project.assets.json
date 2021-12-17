@@ -2116,11 +2116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj",
+      "projectUniqueName": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
       "projectName": "cadastro.api",
-      "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\cadastro.api.csproj",
+      "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
       "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.api\\obj\\",
+      "outputPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2141,11 +2141,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
-              "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
+            "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
+              "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
             },
-            "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj": {
-              "projectPath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj"
+            "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj": {
+              "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj"
             }
           }
         }

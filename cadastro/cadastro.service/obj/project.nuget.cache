@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5GI7EXWiH6KWsgfI+3FaZqx6kFSwVX458jJ+gGjFX6qEOBe0XkDvt9nO85M28qmSBHBHfG1sCyzZM/OQrgHmUA==",
+  "dgSpecHash": "d3IuZKN4q3ybgWyRdrsEkfS3W4ja+9Dz0rMJPppnOpfYAfTVo3p6aUw5rCTUvNVUezptFruW8zUx4H6FGiHyrg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Sandr\\source\\repos\\CadastroConsumoAPI\\cadastro\\cadastro.service\\cadastro.service.csproj",
+  "projectFilePath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sandr\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Sandr\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",

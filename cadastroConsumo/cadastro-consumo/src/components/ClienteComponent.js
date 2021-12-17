@@ -1,102 +1,270 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import $ from 'jquery';
 import axios from 'axios';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-class ClienteComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { clientes: [] };
-    this.headers = [
-      { key: 'idCliente', label: 'IdCliente' },
-      { key: 'nome', label: 'Nome' },
-      { key: 'cpf', label: 'Cpf' },
-    ];
-    this.deleteContact = this.deleteContact.bind(this);
-  }
-  componentDidMount() {
-    const url = 'https://localhost:5001/api/cadastro/v1/getall';
-    axios
-      .get(url)
-      .then((response) => response.data)
-      .then((data) => {
-        this.setState({ clientes: data });
-        console.log(this.state.clientes);
-      });
-  }
+function ClienteComponent() {
+  const baseUrl = 'https://localhost:5001/api/cadastro/v1/getall';
+  const baseUrlEdit = 'https://localhost:5001/api/cadastro/v1/updatecliente';
+  const baseUrlDelete = 'https://localhost:5001/api/cadastro/v1/clientedelete';
 
-  deleteContact(idCliente, event) {
-    //alert(id)
-    event.preventDefault();
-    if (window.confirm('Tem certeza que deseja excluir?')) {
-      axios({
-        method: 'delete',
-        url:
-          'https://localhost:5001/api/cadastro/v1/clientedelete/' + idCliente,
+  const [modalIncluir, setModalIncluir] = useState(false);
+  const [modalEditar, setModalEditar] = useState(false);
+  const [modalExcluir, setModalExcluir] = useState(false);
+
+  const [data, setData] = useState([]);
+
+  // evitar loop Infinito do UseEffect
+  const [updateData, setUpdateData] = useState(true);
+
+  const [cadastroSelecionado, setCadastroSelecionado] = useState({
+    idCliente: '',
+    nome: '',
+    cpf: '',
+  });
+
+  const selecionarCliente = (cliente, opcao) => {
+    setCadastroSelecionado(cliente);
+    opcao === 'Editar' ? abrirFecharModalEditar() : abrirFecharModalExcluir();
+  };
+
+  const abrirFecharModalIncluir = () => {
+    setModalIncluir(!modalIncluir);
+  };
+
+  const abrirFecharModalEditar = () => {
+    setModalEditar(!modalEditar);
+  };
+
+  const abrirFecharModalExcluir = () => {
+    setModalExcluir(!modalExcluir);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCadastroSelecionado({
+      ...cadastroSelecionado,
+      [name]: value,
+    });
+  };
+  const clienteGet = async () => {
+    await axios
+      .get(baseUrl)
+      .then((response) => {
+        setData(response.data);
       })
-        .then(function (response) {
-          console.log(response);
-          if (response.status === 200) {
-            alert('Deletado com Sucesso');
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const clientePost = async () => {
+    delete cadastroSelecionado.idCliente;
+    await axios
+      .post(
+        'https://localhost:5001/api/cadastro/v1/InsertCliente',
+        cadastroSelecionado,
+      )
+      .then((response) => {
+        setData(data.concat(response.data));
+        setUpdateData(true);
+        abrirFecharModalIncluir();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const clientePut = async () => {
+    await axios
+      .put(
+        baseUrlEdit + '/' + cadastroSelecionado.idCliente,
+        cadastroSelecionado,
+      )
+      .then((response) => {
+        var res = response.data;
+        var aux = data;
+        aux.map((cliente) => {
+          if (cliente.idCliente === cadastroSelecionado.idCliente) {
+            cliente.nome = res.nome;
+            cliente.cpf = res.cpf;
           }
-        })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
         });
+        setUpdateData(true);
+        abrirFecharModalEditar();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const resquestDelete = async () => {
+    await axios
+      .delete(baseUrlDelete + '/' + cadastroSelecionado.idCliente)
+      .then((response) => {
+        setData(data.filter((cliente) => cliente.idCliente !== response.data));
+        setUpdateData(true);
+        abrirFecharModalExcluir();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    if (updateData) {
+      clienteGet();
+      setUpdateData(false);
     }
-  }
+  }, [updateData]);
 
-  render() {
-    return (
-      <div className="container">
-        <h1 className="text-center">Cadastro de Clientes</h1>
-        <p>
-          <Link to="/CreateClienteComponent" className="btn btn-primary btn-xs">
-            Adicionar
-          </Link>{' '}
-        </p>
-        <table className="table table-bordered table-striped">
-          <thead>
-            <tr>
-              {this.headers.map(function (h) {
-                return <th key={h.key}>{h.label}</th>;
-              })}
-              <th>Actions</th>
+  return (
+    <div className="container">
+      <br />
+      <h3 className="text-center">Cadastro de Clientes</h3>
+      <header>
+        <button
+          className="btn btn-success"
+          onClick={() => abrirFecharModalIncluir()}
+        >
+          Incluir Cliente
+        </button>
+      </header>
+      <table className="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Cpf</th>
+            <th>Açoes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((cliente) => (
+            <tr key={cliente.idCliente}>
+              <td>{cliente.idCliente}</td>
+              <td>{cliente.nome}</td>
+              <td>{cliente.cpf}</td>
+              <td>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => selecionarCliente(cliente, 'Editar')}
+                >
+                  Editar
+                </button>{' '}
+                <button
+                  className="btn btn-danger"
+                  onClick={() => selecionarCliente(cliente, 'Excluir')}
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {this.state.clientes.map(
-              function (item, key) {
-                return (
-                  <tr key={key}>
-                    <td>{item.idCliente}</td>
-                    <td>{item.nome}</td>
-                    <td>{item.cpf}</td>
-                    <td>
-                      <Link
-                        to={`/UpdateClienteComponent/${item.idCliente}`}
-                        className="btn btn-primary btn-xs"
-                      >
-                        Editar
-                      </Link>
+          ))}
+        </tbody>
+      </table>
+      <Modal isOpen={modalIncluir}>
+        <ModalHeader>Incluir Cliente</ModalHeader>
+        <ModalBody>
+          <div className="form-group">
+            <label>Nome: </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              name="nome"
+              onChange={handleChange}
+            />
+            <br />
+            <label>Cpf: </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              name="cpf"
+              onChange={handleChange}
+            />
+            <br />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <button className="btn btn-primary" onClick={() => clientePost()}>
+            Incluir
+          </button>{' '}
+          <button
+            className="btn btn-danger"
+            onClick={() => abrirFecharModalIncluir()}
+          >
+            Cancelar
+          </button>
+        </ModalFooter>
+      </Modal>
 
-                      <Link
-                        to="#"
-                        onClick={this.deleteContact.bind(this, item.idCliente)}
-                        className="btn btn-danger btn-xs"
-                      >
-                        Deletar
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              }.bind(this),
-            )}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
+      <Modal isOpen={modalEditar}>
+        <ModalHeader>Editar Cliente</ModalHeader>
+        <ModalBody>
+          <div className="form-group">
+            <label>ID: </label>
+            <br />
+            <input
+              value={cadastroSelecionado && cadastroSelecionado.idCliente}
+              readOnly
+            />
+            <br />
+            <label>Nome: </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              name="nome"
+              onChange={handleChange}
+              value={cadastroSelecionado && cadastroSelecionado.nome}
+            />
+            <br />
+            <label>Cpf: </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              name="cpf"
+              onChange={handleChange}
+              value={cadastroSelecionado && cadastroSelecionado.cpf}
+            />
+            <br />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <button className="btn btn-primary" onClick={() => clientePut()}>
+            Editar
+          </button>{' '}
+          <button
+            className="btn btn-danger"
+            onClick={() => abrirFecharModalEditar()}
+          >
+            Cancelar
+          </button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen={modalExcluir}>
+        <ModalBody>
+          Deseja excluir esse Cliente?
+          {cadastroSelecionado && cadastroSelecionado.nome}
+        </ModalBody>
+        <ModalFooter>
+          <button className="btn btn-danger" onClick={() => resquestDelete()}>
+            Sim
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => abrirFecharModalExcluir()}
+          >
+            Não
+          </button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
 }
-
 export default ClienteComponent;
