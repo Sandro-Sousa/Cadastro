@@ -20,9 +20,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpGet("v1/getall")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", null)]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
+    [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> GetAll()
     {
       try
@@ -39,9 +39,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpGet("v1/clientegetbyid/{id}")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", null)]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
+    [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> ClienteGetById(int id)
     {
       try
@@ -59,9 +59,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpPost("v1/insertcliente")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", null)]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Inserido com Sucesso", typeof(ClienteDTOInsert))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> InsertCliente(ClienteDTOInsert model)
     {
       try
@@ -77,9 +77,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpPut("v1/updatecliente/{id}")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", null)]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Atualizado com Sucesso", typeof(ClienteDTO))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> UpdateCliente(int id, ClienteDTO model)
     {
       if (id != model.idCliente)
@@ -99,9 +99,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpDelete("v1/clientedelete/{userid}")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", typeof(bool))]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", null)]
+    [SwaggerResponse(StatusCodes.Status200OK, "Deletado com Sucesso", typeof(bool))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> ClienteDelete(int userid)
     {
       try
@@ -119,9 +119,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpPost("v1/cadastroendereco")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", null)]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(EnderecoDTO))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> CadastroEndereco(EnderecoDTO model)
     {
       try
@@ -137,9 +137,9 @@ namespace cadastro.api.Controllers
     }
 
     [HttpPost("v1/cadastrotelefone")]
-    [SwaggerResponse(StatusCodes.Status200OK, "", null)]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "", null)]
-    [SwaggerResponse(StatusCodes.Status500InternalServerError, "", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(TelefoneDTO))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> CadastroTelefone(TelefoneDTO model)
     {
       try
