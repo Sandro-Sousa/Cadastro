@@ -46,3 +46,15 @@ C:\Users\Sandr\OneDrive\Desktop\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.
 C:\Users\Sandr\OneDrive\Desktop\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.dll
 C:\Users\Sandr\OneDrive\Desktop\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\ref\cadastro.cross.dll
 C:\Users\Sandr\OneDrive\Desktop\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.pdb
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\bin\Debug\net5.0\cadastro.cross.deps.json
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\bin\Debug\net5.0\cadastro.cross.dll
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\bin\Debug\net5.0\ref\cadastro.cross.dll
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\bin\Debug\net5.0\cadastro.cross.pdb
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.csproj.AssemblyReference.cache
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.AssemblyInfoInputs.cache
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.AssemblyInfo.cs
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.csproj.CoreCompileInputs.cache
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.dll
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\ref\cadastro.cross.dll
+C:\Users\sandro.oliveira\Documents\Cadastro\Cadastro\cadastro\cadastro.cross\obj\Debug\net5.0\cadastro.cross.pdb

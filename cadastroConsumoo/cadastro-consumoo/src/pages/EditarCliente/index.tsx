@@ -17,7 +17,12 @@ type Inputs = {
 
 const EditarCliente: React.FC = () => {
 
-  const [telefone, setTelefone] = useState([{
+  const [telefone, setTelefone] = useState({
+    numero: "",
+    idCliente: "",
+  });
+
+  const [telefones, setTelefones] = useState([{
     numero: "",
     idCliente: "",
   }]);
@@ -39,35 +44,37 @@ const EditarCliente: React.FC = () => {
 
 
   const onInputChangeTelefone = (index:number, e: React.ChangeEvent<HTMLInputElement>) => {
-    const values:Array<any> = [...telefone];
+    const values:Array<any> = [...telefones];
     values[index][e.target.name] = e.target.value;
-    setTelefone(values);
+    setTelefones(values);
   };
 
-  // const handleServiceChange = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
-  //   const { name, value } = e.target;
-  //   const list:Array<any> = [...serviceList];
-  //   list[index][name] = value;
-  //   setServiceList(list);
-  // };
-
-   // const onSubmitTelefone = async () => {
-  //   await axios.post("https://localhost:5001/api/cadastro/v1/cadastroTelefone", telefone);
-  // };
 
   useEffect(() => {
     clienteGetById();
   }, []);
 
   const onSubmit = async () => {
-    await axios.put(`https://localhost:5001/api/cadastro/v1/updatecliente/${id}`, cliente);
+    await axios.put(`https://localhost:5001/api/cadastro/v1/updatecliente/${id}`, cliente)
+    .then((response) => {
+      console.log(JSON.stringify(cliente))
+    })
+    .catch((response) => {
+      console.log(JSON.stringify(cliente))
+    });
     history.push("/");
   };
 
+
   const onSubmitTelefone = async (e:any) => {
     e.preventDefault();
-    await axios.post("https://localhost:5001/api/cadastro/v1/cadastrotelefone", telefone);
-    
+    await axios.post("https://localhost:5001/api/cadastro/v1/cadastrotelefone", telefones)
+    .then((response) => {
+      console.log(JSON.stringify(telefones))
+    })
+    .catch((response) => {
+      console.log(JSON.stringify(telefones))
+    });
   };
 
   const clienteGetById = async () => {
@@ -77,7 +84,7 @@ const EditarCliente: React.FC = () => {
 
 
   const handleServiceAdd = () => {
-    setTelefone([...telefone, {  numero: "",
+    setTelefones([...telefones, {  numero: "",
     idCliente: "" }]);
   };
   return (
@@ -128,7 +135,7 @@ const EditarCliente: React.FC = () => {
         <br />
         <h4 className="text-center mb-4">Telefone</h4>
         <form onSubmit={handleSubmit(onSubmitTelefone)}>
-        {telefone.map((telefoneService, index) =>(
+        {telefones.map((telefoneService, index) =>(
             <div key={index}>
             <div className="form-group">
              <input
@@ -150,7 +157,7 @@ const EditarCliente: React.FC = () => {
                    />
             </div>
             <br />
-            {telefone.length - 1 === index && telefone.length < 4 && (
+            {telefones.length - 1 === index && telefones.length && (
                 <button
                   type="button"
                   onClick={handleServiceAdd}

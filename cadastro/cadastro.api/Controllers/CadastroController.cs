@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace cadastro.api.Controllers
@@ -140,13 +141,16 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(TelefoneDTO))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
-    public async Task<ActionResult> CadastroTelefone(TelefoneDTO model)
+    public async Task<ActionResult> CadastroTelefone(List<TelefoneDTO> model)
     {
       try
       {
-        var result = await this._cadastroService.TelefoneInsert(model);
+        foreach (var item in model)
+        {
+            var result = await this._cadastroService.TelefoneInsert(item);
+        }
 
-        return this.StatusCode(StatusCodes.Status200OK, result);
+        return this.StatusCode(StatusCodes.Status200OK, model);
       }
       catch (Exception ex)
       {
