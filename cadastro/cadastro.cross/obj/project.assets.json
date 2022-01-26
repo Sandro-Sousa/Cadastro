@@ -517,23 +517,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sandro.oliveira\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Sandr\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj",
+      "projectUniqueName": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj",
       "projectName": "cadastro.cross",
-      "projectPath": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj",
-      "packagesPath": "C:\\Users\\sandro.oliveira\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\Cadastro\\cadastro\\cadastro.cross\\obj\\",
+      "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj",
+      "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\sandro.oliveira\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sandr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -599,7 +600,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -83,7 +83,7 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
     public async Task<ActionResult> UpdateCliente(int id, ClienteDTO model)
     {
-      if (id != model.idCliente)
+      if (id != model.ClienteId)
       {
         return BadRequest("Id Invalido");
       }
@@ -147,7 +147,7 @@ namespace cadastro.api.Controllers
       {
         foreach (var item in model)
         {
-            var result = await this._cadastroService.TelefoneInsert(item);
+          var result = await this._cadastroService.TelefoneInsert(item);
         }
 
         return this.StatusCode(StatusCodes.Status200OK, model);

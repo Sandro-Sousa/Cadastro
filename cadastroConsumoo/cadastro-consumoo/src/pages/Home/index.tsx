@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from 'react-router-dom';
 
 interface IData {
-  idCliente:number;
+  clienteId:number;
   nome:string;
   cpf:string;
 }
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   const [modalExcluir, setModalExcluir] = useState(false);
 
   const [cadastroSelecionado, setCadastroSelecionado] = useState({
-    idCliente: '',
+    clienteId: '',
     nome: '',
     cpf: '',
   });
@@ -48,9 +48,9 @@ const Home: React.FC = () => {
 
   const resquestDelete = async () => {
     await axios
-      .delete(baseUrlDelete + '/' + cadastroSelecionado.idCliente)
+      .delete(baseUrlDelete + '/' + cadastroSelecionado.clienteId)
       .then((response) => {
-        setData(data.filter((cliente) => cliente.idCliente !== response.data));
+        setData(data.filter((cliente) => cliente.clienteId !== response.data));
         clienteGet();
         abrirFecharModalExcluir();
       })
@@ -88,12 +88,12 @@ const Home: React.FC = () => {
         </thead>
         <tbody>
           {data.map((cliente) => (
-            <tr key={cliente.idCliente}>
-              <td>{cliente.idCliente}</td>
+            <tr key={cliente.clienteId}>
+              <td>{cliente.clienteId}</td>
               <td>{cliente.nome}</td>
               <td>{cliente.cpf}</td>
               <td>
-              <Link to={{ pathname: `/EditarCliente/${cliente.idCliente}`}}>
+              <Link to={{ pathname: `/EditarCliente/${cliente.clienteId}`}}>
                 <button
                   className="btn btn-primary"
                   >

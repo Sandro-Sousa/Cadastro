@@ -42,7 +42,7 @@ namespace cadastro.repository
     {
       var parametros = new DynamicParameters();
 
-      parametros.Add(@"IdCliente", Id, DbType.Int32, ParameterDirection.Input, null);
+      parametros.Add(@"ClienteId", Id, DbType.Int32, ParameterDirection.Input, null);
 
       using (SqlConnection db = new SqlConnection(this._connectionString))
       {
@@ -103,7 +103,7 @@ namespace cadastro.repository
 
       try
       {
-        parametros.Add("@IdCliente", clienteEntity.IdCliente, DbType.Int32, ParameterDirection.Input, null);
+        parametros.Add("@ClienteId", clienteEntity.ClienteId, DbType.Int32, ParameterDirection.Input, null);
         parametros.Add("@Nome", clienteEntity.Nome, DbType.String, ParameterDirection.Input, null);
         parametros.Add("@Cpf", clienteEntity.Cpf, DbType.String, ParameterDirection.Input, null);
 
@@ -143,7 +143,7 @@ namespace cadastro.repository
       }
       var parametros = new DynamicParameters();
 
-      parametros.Add(@"IdCliente", Id, DbType.Int32, ParameterDirection.Input, null);
+      parametros.Add(@"ClienteId", Id, DbType.Int32, ParameterDirection.Input, null);
 
       using (SqlConnection db = new SqlConnection(this._connectionString))
       {
@@ -167,7 +167,7 @@ namespace cadastro.repository
         parametros.Add("@Bairro", enderecoEntity.Bairro, DbType.String, ParameterDirection.Input, null);
         parametros.Add("@Cidade", enderecoEntity.Cidade, DbType.String, ParameterDirection.Input, null);
         parametros.Add("@Uf", enderecoEntity.Uf, DbType.String, ParameterDirection.Input, null);
-        parametros.Add("@IdCliente", enderecoEntity.IdCliente, DbType.Int32, ParameterDirection.Input, null);
+        parametros.Add("@ClienteId", enderecoEntity.ClienteId, DbType.Int32, ParameterDirection.Input, null);
 
         using (SqlConnection db = new SqlConnection(this._connectionString))
         {
@@ -205,9 +205,11 @@ namespace cadastro.repository
 
       try
       {
-        parametros.Add("@Numero", telefoneEntity.Numero, DbType.String, ParameterDirection.Input, null);
+        parametros.Add("@ClienteId", telefoneEntity.ClienteId, DbType.Int32, ParameterDirection.Input, null);
 
-        parametros.Add("@IdCliente", telefoneEntity.IdCliente, DbType.Int32, ParameterDirection.Input, null);
+        parametros.Add("@Ddd", telefoneEntity.Ddd, DbType.String, ParameterDirection.Input, null);
+
+        parametros.Add("@Numero", telefoneEntity.Numero, DbType.String, ParameterDirection.Input, null);
 
         using (SqlConnection db = new SqlConnection(this._connectionString))
         {

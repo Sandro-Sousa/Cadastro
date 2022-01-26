@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios'
 import { useHistory} from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 type Inputs = {
   nome: string,
@@ -58,7 +59,13 @@ const IncluirCliente: React.FC = () => {
             {errors.cpf && <span>Cpf é requerido</span>}
           </div>
           <br />
-          <button className="btn btn-primary btn-block">Adicionar Cliente</button>
+          <button className="btn btn-primary btn-block">Adicionar Cliente</button>{' '}
+          <Link to='/'>
+        <button
+          className="btn btn-success ml-1">
+           Voltar
+        </button>
+        </Link>
         </form>
       </div>
     </div>

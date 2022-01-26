@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace cadastro.service.DTOs
 {
-   public class ClienteDTO
-    {
-        public int idCliente { get; set; }
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
-    }
+  public class ClienteDTO
+  {
+    public int ClienteId { get; set; }
+    public string Nome { get; set; }
+    public string Cpf { get; set; }
+  }
 }
