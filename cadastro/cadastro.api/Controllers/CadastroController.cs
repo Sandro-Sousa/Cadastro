@@ -20,15 +20,15 @@ namespace cadastro.api.Controllers
       this._cadastroService = cadastroService;
     }
 
-    [HttpGet("v1/getall")]
+    [HttpGet("v1/clienteGetAll")]
     [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult> ClienteGetAll()
     {
       try
       {
-        var result = await this._cadastroService.GetAll();
+        var result = await this._cadastroService.ClienteGetAll();
         if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
 
         return this.StatusCode(StatusCodes.Status200OK, result);
@@ -137,6 +137,44 @@ namespace cadastro.api.Controllers
       }
     }
 
+    [HttpGet("v1/telefoneGetAll")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> TelefoneGetAll()
+    {
+      try
+      {
+        var result = await this._cadastroService.TelefoneGetAll();
+        if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+    [HttpGet("v1/telefonesGetAllByIdCliente/{id}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> TelefonesGetAllByIdCliente(int id)
+    {
+      try
+      {
+        var result = await this._cadastroService.TelefonesGetAllByIdCliente(id);
+        if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
     [HttpPost("v1/cadastrotelefone")]
     [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(TelefoneDTO))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
@@ -151,6 +189,26 @@ namespace cadastro.api.Controllers
         }
 
         return this.StatusCode(StatusCodes.Status200OK, model);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+    [HttpDelete("v1/telefonedelete/{userid}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Deletado com Sucesso", typeof(bool))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> TelefoneDelete(int userid)
+    {
+      try
+      {
+        var result = await this._cadastroService.TelefoneDelete(userid);
+
+        if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
       }
       catch (Exception ex)
       {

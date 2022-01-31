@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Modal, ModalBody, ModalFooter} from 'reactstrap';
+import { Modal, ModalBody, ModalFooter } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface IData {
-  clienteId:number;
-  nome:string;
-  cpf:string;
+  clienteId: number;
+  nome: string;
+  cpf: string;
 }
 
 const Home: React.FC = () => {
-
-  const baseUrl = 'https://localhost:5001/api/cadastro/v1/getall';
+  const baseUrl = 'https://localhost:5001/api/cadastro/v1/clienteGetAll';
   const baseUrlDelete = 'https://localhost:5001/api/cadastro/v1/clientedelete';
 
   const [data, setData] = useState<IData[]>([]);
@@ -25,7 +24,7 @@ const Home: React.FC = () => {
     cpf: '',
   });
 
-  const selecionarCliente = (cliente:any, opcao:any) => {
+  const selecionarCliente = (cliente: any, opcao: any) => {
     setCadastroSelecionado(cliente);
     abrirFecharModalExcluir();
   };
@@ -45,7 +44,6 @@ const Home: React.FC = () => {
       });
   };
 
-
   const resquestDelete = async () => {
     await axios
       .delete(baseUrlDelete + '/' + cadastroSelecionado.clienteId)
@@ -59,23 +57,30 @@ const Home: React.FC = () => {
       });
   };
 
-
   useEffect(() => {
-      clienteGet();
+    clienteGet();
   }, []);
 
-    return (
-      <div className="container">
-         <br />
+  return (
+    <div className="container">
+      <br />
       <h3 className="text-center">Cadastro de Clientes</h3>
-      <header>
-        <Link to='/IncluirCliente'>
-        <button
-          className="btn btn-success">
-          Incluir Cliente
-        </button>
-        </Link>
-      </header>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/IncluirCliente">
+                Incluir Cliente
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <br />
       <table className="table table-bordered table-striped">
         <thead>
@@ -93,16 +98,12 @@ const Home: React.FC = () => {
               <td>{cliente.nome}</td>
               <td>{cliente.cpf}</td>
               <td>
-              <Link to={{ pathname: `/EditarCliente/${cliente.clienteId}`}}>
-                <button
-                  className="btn btn-primary"
-                  >
-                  Editar
-                </button>{' '}
+                <Link to={{ pathname: `/EditarCliente/${cliente.clienteId}` }}>
+                  <button className="btn btn-primary">Editar</button>{' '}
                 </Link>
                 <button
-                   className="btn btn-danger"
-                   onClick={() => selecionarCliente(cliente, 'Excluir')}
+                  className="btn btn-danger"
+                  onClick={() => selecionarCliente(cliente, 'Excluir')}
                 >
                   Excluir
                 </button>
@@ -128,7 +129,7 @@ const Home: React.FC = () => {
           </button>
         </ModalFooter>
       </Modal>
-      </div>
-    );
-  }
+    </div>
+  );
+};
 export default Home;

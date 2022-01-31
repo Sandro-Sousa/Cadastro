@@ -1,7 +1,7 @@
 USE [Cadastro]
 GO
 
-/****** Object:  Table [dbo].[Cliente]    Script Date: 25/01/2022 23:03:57 ******/
+/****** Object:  Table [dbo].[Cliente]    Script Date: 30/01/2022 23:19:15 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,9 +25,6 @@ GO
 
 
 
-USE [Cadastro]
-GO
-/****** Object:  Table [dbo].[Endereco]    Script Date: 25/01/2022 23:04:15 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -58,10 +55,6 @@ ALTER TABLE [dbo].[Endereco] CHECK CONSTRAINT [Fk_Endereco_Cliente]
 GO
 
 
-USE [Cadastro]
-GO
-
-/****** Object:  Table [dbo].[Telefone]    Script Date: 25/01/2022 23:04:22 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -72,7 +65,7 @@ CREATE TABLE [dbo].[Telefone](
 	[TelefoneId] [int] IDENTITY(1,1) NOT NULL,
 	[ClienteId] [int] NOT NULL,
 	[Ddd] [varchar](3) NOT NULL,
-	[Numero] [varchar](12) NOT NULL,
+	[Numero] [varchar](9) NOT NULL,
  CONSTRAINT [PK__Telefone__9B8AC7A96DD3E07F] PRIMARY KEY CLUSTERED 
 (
 	[TelefoneId] ASC
@@ -91,16 +84,72 @@ GO
 
 
 
+PROCEDURES:
 
 
-
-PROCEDURES
-
-
-USE [Cadastro]
+SET ANSI_NULLS ON
 GO
 
-/****** Object:  StoredProcedure [dbo].[ClienteDelete]    Script Date: 13/12/2021 00:24:03 ******/
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ClienteGetAll]
+as
+begin
+	select t1.*
+	from Cliente (nolock) t1
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [dbo].[ClienteGetById]
+(
+	@ClienteId int
+)
+as
+begin
+	select t1.* from dbo.Cliente (nolock) t1
+	where ClienteId = @ClienteId
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE procedure [dbo].[ClienteInsert]
+(
+	@Nome varchar(50),
+	@Cpf varchar(11)
+)
+as
+begin
+	declare @ClienteId bigint = null
+
+	insert into dbo.Cliente(Nome, Cpf)
+	 values
+		(@Nome, @Cpf)
+	set @ClienteId = SCOPE_IDENTITY()
+
+	 select
+		t1.*
+	 from Cliente (nolock) t1
+	 where
+		t1.ClienteId = @ClienteId
+end
+GO
+
+
 SET ANSI_NULLS ON
 GO
 
@@ -111,102 +160,16 @@ GO
 
 CREATE procedure [dbo].[ClienteDelete]
 (
-	@IdCliente int
+	@ClienteId int
 )
 as
 begin
 	delete from Cliente
-	where IdCliente = @IdCliente
-
-	delete from Endereco
-	where IdCliente = @IdCliente
-
-	delete from Telefone
-	where IdCliente = @IdCliente
+	where ClienteId = @ClienteId
 end
 GO
 
 
-
-
-USE [Cadastro]
-GO
-
-/****** Object:  StoredProcedure [dbo].[ClienteGet]    Script Date: 13/12/2021 00:24:22 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE PROCEDURE [dbo].[ClienteGet]
-as
-begin
-	select t1.*
-	from Cliente (nolock) t1
-end
-GO
-
-
-
-USE [Cadastro]
-GO
-
-/****** Object:  StoredProcedure [dbo].[ClienteGetById]    Script Date: 13/12/2021 00:24:33 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-create procedure [dbo].[ClienteGetById]
-(
-	@IdCliente int
-)
-as
-begin
-	select * from dbo.Cliente
-	where IdCliente = @IdCliente
-end
-GO
-
-
-
-
-USE [Cadastro]
-GO
-
-/****** Object:  StoredProcedure [dbo].[ClienteInsert]    Script Date: 13/12/2021 00:24:50 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-create procedure [dbo].[ClienteInsert]
-(
-	@Nome varchar(50),
-	@Cpf varchar(11)
-)
-as
-begin
-	declare @IdCliente bigint = null
-
-	insert into dbo.Cliente(Nome, Cpf)
-	 values
-		(@Nome, @Cpf)
-	set @IdCliente = SCOPE_IDENTITY()
-end
-GO
-
-
-
-
-USE [Cadastro]
-GO
-
-/****** Object:  StoredProcedure [dbo].[ClienteUpdate]    Script Date: 13/12/2021 00:24:59 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -216,7 +179,7 @@ GO
 
 CREATE procedure [dbo].[ClienteUpdate]
 (
-	@IdCliente int,
+	@ClienteId int,
 	@Nome varchar(50),
 	@Cpf varchar(11)
 )
@@ -227,25 +190,17 @@ begin
 	t1.Cpf = @Cpf
 	from Cliente t1 
 	where 
-		t1.IdCliente = @IdCliente
+		t1.ClienteId = @ClienteId
 
 	select
 		t1.*
 	from Cliente (nolock) t1
 	where
-		t1.IdCliente = @IdCliente
+		t1.ClienteId = @ClienteId
 end
 GO
 
 
-
-
-USE [Cadastro]
-GO
-
-/****** Object:  StoredProcedure [dbo].[EnderecoInsert]    Script Date: 13/12/2021 00:25:09 ******/
-SET ANSI_NULLS ON
-GO
 
 SET QUOTED_IDENTIFIER ON
 GO
@@ -256,35 +211,83 @@ CREATE procedure [dbo].[EnderecoInsert]
 	@Logradouro varchar(60),
 	@Bairro varchar(50),
 	@Cidade varchar (50),
-	@Uf varchar(2)
+	@Uf varchar(2),
+	@ClienteId int
 )
 as
 begin
-	declare @IdEndereco bigint = null,
-			@IdCliente int
+	declare @EnderecoId bigint = null
 
-    select top 1 @IdCliente = IdCliente from dbo.Cliente order by IdCliente desc
+    insert into dbo.Endereco(Logradouro, Bairro, Cidade, Uf, ClienteId)
+	values(@Logradouro, @Bairro, @Cidade, @Uf, @ClienteId)
 
-    insert into dbo.Endereco(Logradouro, Bairro, Cidade, Uf, IdCliente)
-	values(@Logradouro, @Bairro, @Cidade, @Uf, @IdCliente)
-
-	set @IdEndereco = SCOPE_IDENTITY()
+	set @EnderecoId = SCOPE_IDENTITY()
 
 	select
 		t1.*
 	 from Endereco (nolock) t1
 	 where
-		t1.IdEndereco = @IdEndereco
+		t1.EnderecoId = @EnderecoId
 end
 GO
 
 
-
-
-USE [Cadastro]
+SET ANSI_NULLS ON
 GO
 
-/****** Object:  StoredProcedure [dbo].[TelefoneInsert]    Script Date: 13/12/2021 00:25:19 ******/
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE procedure [dbo].[EnderecoDelete]
+(
+	@EnderecoId int
+)
+as
+begin
+	delete from Endereco
+	where EnderecoId = @EnderecoId
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[TelefoneGetAll]
+as
+begin
+	select t1.*
+	from Telefone (nolock) t1
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE procedure [dbo].[TelefonesGetAllByIdCliente]
+(
+	@ClienteId int
+)
+as
+begin
+	select t1.* from dbo.Telefone (nolock) t1
+	where ClienteId = @ClienteId
+end
+GO
+
+
 SET ANSI_NULLS ON
 GO
 
@@ -294,25 +297,44 @@ GO
 
 CREATE procedure [dbo].[TelefoneInsert]
 (
-	@Telefone varchar(12)
+	@ClienteId int,
+	@Ddd varchar(3),
+	@Numero varchar(12)
 )
 as
 begin
-	declare @IdTelefone bigint = null,
-			@IdCliente int
+	declare @TelefoneId bigint = null
 
-	select top 1 @IdCliente = IdCliente from dbo.Cliente order by IdCliente desc
+    insert into dbo.Telefone(ClienteId, Ddd, Numero)
+	values(@ClienteId, @Ddd, @Numero)
 
-    insert into dbo.Telefone(Telefone, IdCliente)
-	values(@Telefone, @IdCliente)
-
-	set @IdTelefone = SCOPE_IDENTITY()
+	set @TelefoneId = SCOPE_IDENTITY()
 
 	select
 		t1.*
 	 from Telefone (nolock) t1
 	 where
-		t1.IdTelefone = @IdTelefone
+		t1.TelefoneId = @TelefoneId
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE procedure [dbo].[TelefoneDelete]
+(
+	@TelefoneId int
+)
+as
+begin
+	delete from Telefone
+	where TelefoneId = @TelefoneId
 end
 GO
 

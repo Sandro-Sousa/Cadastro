@@ -19,7 +19,7 @@ namespace cadastro.repository
       this._connectionString = velesemail.cross.AppSettings.GetConnectionString("Cadastro");
     }
 
-    public async Task<List<Cliente>> ClienteGet()
+    public async Task<List<Cliente>> ClienteGetAll()
     {
 
       var resultado = new List<Cliente>();
@@ -27,7 +27,7 @@ namespace cadastro.repository
       using (SqlConnection db = new SqlConnection(this._connectionString))
       {
         var result = await db.QueryAsync<Cliente>(
-            "[ClienteGet]",
+            "[ClienteGetAll]",
             commandType: CommandType.StoredProcedure);
 
         if (result != null)
@@ -197,6 +197,46 @@ namespace cadastro.repository
       }
     }
 
+    public async Task<List<Telefone>> TelefoneGetAll()
+    {
+      var resultado = new List<Telefone>();
+
+      using (SqlConnection db = new SqlConnection(this._connectionString))
+      {
+        var result = await db.QueryAsync<Telefone>(
+            "[TelefoneGetAll]",
+            commandType: CommandType.StoredProcedure);
+
+        if (result != null)
+        {
+          resultado = result.ToList<Telefone>();
+        }
+      }
+      return (resultado);
+    }
+
+    public async Task<List<Telefone>> TelefonesGetAllByIdCliente(int Id)
+    {
+      var parametros = new DynamicParameters();
+      var resultado = new List<Telefone>();
+
+      parametros.Add(@"ClienteId", Id, DbType.Int32, ParameterDirection.Input, null);
+
+      using (SqlConnection db = new SqlConnection(this._connectionString))
+      {
+        var result = await db.QueryAsync<Telefone>(
+            "[TelefonesGetAllByIdCliente]",
+            parametros,
+            commandType: CommandType.StoredProcedure);
+
+        if (result != null)
+        {
+          resultado = result.ToList<Telefone>();
+        }
+      }
+      return (resultado);
+    }
+
     public async Task<Telefone> TelefoneInsert(Telefone telefoneEntity)
     {
       var retorno = new Telefone();
@@ -237,6 +277,26 @@ namespace cadastro.repository
 
         throw new Exception(ex.Message);
       }
+    }
+
+    public async Task<bool> TelefoneDelete(int Id)
+    {
+      if (Id < 0)
+      {
+        return false;
+      }
+      var parametros = new DynamicParameters();
+
+      parametros.Add(@"TelefoneId", Id, DbType.Int32, ParameterDirection.Input, null);
+
+      using (SqlConnection db = new SqlConnection(this._connectionString))
+      {
+        var result = await db.QueryAsync<Telefone>(
+            "[TelefoneDelete]",
+            parametros,
+            commandType: CommandType.StoredProcedure);
+      }
+      return true;
     }
   }
 }
