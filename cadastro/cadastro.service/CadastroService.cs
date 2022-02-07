@@ -113,7 +113,7 @@ namespace cadastro.service
       }
     }
 
-    public async Task<EnderecoDTO> EnderecoInsert(EnderecoDTO enderecoDTO)
+    public async Task<EnderecoDTOInsert> EnderecoInsert(EnderecoDTOInsert enderecoDTO)
     {
       try
       {
@@ -123,7 +123,7 @@ namespace cadastro.service
 
         if (endereco == null) throw new Exception("Dados Inválidos");
 
-        var result = this._mapper.Map<EnderecoDTO>(endereco);
+        var result = this._mapper.Map<EnderecoDTOInsert>(endereco);
 
         return result;
       }
@@ -133,6 +133,40 @@ namespace cadastro.service
       }
     }
 
+    public async Task<List<EnderecoDTO>> EnderecosGetAllByIdCliente(int Id)
+    {
+      try
+      {
+        var user = await this._procedure.EnderecosGetAllByIdCliente(Id);
+
+        if (user == null) throw new Exception("Id inválido(s).");
+
+        var result = this._mapper.Map<List<EnderecoDTO>>(user);
+
+        return result;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public async Task<bool> EnderecoDelete(int Id)
+    {
+      if (Id < 0)
+      {
+        return false;
+      }
+      try
+      {
+        var result = await this._procedure.EnderecoDelete(Id);
+        return true;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
     public async Task<List<TelefoneDTO>> TelefoneGetAll()
     {
       try
@@ -169,7 +203,7 @@ namespace cadastro.service
       }
     }
 
-    public async Task<TelefoneDTO> TelefoneInsert(TelefoneDTO telefoneDTO)
+    public async Task<TelefoneDTOInsert> TelefoneInsert(TelefoneDTOInsert telefoneDTO)
     {
       try
       {
@@ -179,7 +213,7 @@ namespace cadastro.service
 
         if (telefone == null) throw new Exception("Dados Inválidos");
 
-        var result = this._mapper.Map<TelefoneDTO>(telefone);
+        var result = this._mapper.Map<TelefoneDTOInsert>(telefone);
 
         return result;
       }
@@ -198,6 +232,61 @@ namespace cadastro.service
       try
       {
         var result = await this._procedure.TelefoneDelete(Id);
+        return true;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public async Task<List<EmailDTO>> EmailsGetAllByIdCliente(int Id)
+    {
+      try
+      {
+        var user = await this._procedure.EmailsGetAllByIdCliente(Id);
+
+        if (user == null) throw new Exception("Id inválido(s).");
+
+        var result = this._mapper.Map<List<EmailDTO>>(user);
+
+        return result;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public async Task<EmailDTOInsert> EmailInsert(EmailDTOInsert emailDTO)
+    {
+      try
+      {
+        var data = this._mapper.Map<Email>(emailDTO);
+
+        var email = await this._procedure.EmailInsert(data);
+
+        if (email == null) throw new Exception("Dados Inválidos");
+
+        var result = this._mapper.Map<EmailDTOInsert>(email);
+
+        return result;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public async Task<bool> EmailDelete(int Id)
+    {
+      if (Id < 0)
+      {
+        return false;
+      }
+      try
+      {
+        var result = await this._procedure.EmailDelete(Id);
         return true;
       }
       catch (Exception ex)

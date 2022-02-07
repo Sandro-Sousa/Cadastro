@@ -22,32 +22,34 @@ interface ITelefone {
   numero: string;
 }
 
+interface IEndereco {
+  enderecoId: number;
+  logradouro: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+  clienteId: number;
+}
+
+interface IEmail {
+  emailId: number;
+  email: string;
+  clienteId: number;
+}
+
 const EditarCliente: React.FC = () => {
   const baseUrlTelefoneDelete =
     'https://localhost:5001/api/cadastro/v1/telefonedelete';
 
+  const baseUrlEnderecoDelete =
+    'https://localhost:5001/api/cadastro/v1/enderecoDelete';
+
+  const baseUrlEmailDelete =
+    'https://localhost:5001/api/cadastro/v1/emaildelete';
+
   const [data, setData] = useState<ITelefone[]>([]);
-
-  const [telefoneSelecionado, setTelefoneSelecionado] = useState({
-    telefoneId: '',
-    clienteId: '',
-    ddd: '',
-    numero: '',
-  });
-
-  const resquestDelete = async (id: any) => {
-    await axios
-      .delete(baseUrlTelefoneDelete + '/' + id)
-      .then((response) => {
-        setData(
-          data.filter((telefone) => telefone.telefoneId !== response.data),
-        );
-        telefonesGetAllByIdCliente();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const [endereco, setEndereco] = useState<IEndereco[]>([]);
+  const [email, setEmail] = useState<IEmail[]>([]);
 
   const [cliente, setCliente] = useState({
     clienteId: '',
@@ -63,6 +65,46 @@ const EditarCliente: React.FC = () => {
     },
   ]);
 
+  const [enderecos, setEnderecos] = useState([
+    {
+      enderecoId: '',
+      logradouro: '',
+      bairro: '',
+      cidade: '',
+      uf: '',
+      clienteId: '',
+    },
+  ]);
+
+  const [emails, setEmails] = useState([
+    {
+      emailId: '',
+      email: '',
+      clienteId: '',
+    },
+  ]);
+
+  const clienteGetById = async () => {
+    const result = await axios.get(
+      `https://localhost:5001/api/cadastro/v1/clientegetbyid/${id}`,
+    );
+    setCliente(result.data);
+  };
+
+  const resquestDeleteTelefoneTelefone = async (id: any) => {
+    await axios
+      .delete(baseUrlTelefoneDelete + '/' + id)
+      .then((response) => {
+        setData(
+          data.filter((telefone) => telefone.telefoneId !== response.data),
+        );
+        telefonesGetAllByIdCliente();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const telefonesGetAllByIdCliente = async () => {
     await axios
       .get(
@@ -76,29 +118,31 @@ const EditarCliente: React.FC = () => {
       });
   };
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-
-  let history = useHistory();
-  const { id } = useParams<IParam>();
-
-  const { clienteId, nome, cpf } = cliente;
-
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCliente({ ...cliente, [e.target.name]: e.target.value });
+  const resquestDeleteEndereco = async (id: any) => {
+    await axios
+      .delete(baseUrlEnderecoDelete + '/' + id)
+      .then((response) => {
+        setEndereco(
+          endereco.filter((endereco) => endereco.enderecoId !== response.data),
+        );
+        telefonesGetAllByIdCliente();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const onInputChangeTelefone = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const values: Array<any> = [...telefones];
-    values[index][e.target.name] = e.target.value;
-    setTelefones(values);
+  const enderecosGetAllByIdCliente = async () => {
+    await axios
+      .get(
+        `https://localhost:5001/api/cadastro/v1/enderecosGetAllByIdCliente/${id}`,
+      )
+      .then((response) => {
+        setEndereco(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onSubmit = async () => {
@@ -127,11 +171,47 @@ const EditarCliente: React.FC = () => {
     telefonesGetAllByIdCliente();
   };
 
-  const clienteGetById = async () => {
-    const result = await axios.get(
-      `https://localhost:5001/api/cadastro/v1/clientegetbyid/${id}`,
-    );
-    setCliente(result.data);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  let history = useHistory();
+  const { id } = useParams<IParam>();
+
+  const { clienteId, nome, cpf } = cliente;
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCliente({ ...cliente, [e.target.name]: e.target.value });
+  };
+
+  const onInputChangeTelefone = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const values: Array<any> = [...telefones];
+    values[index][e.target.name] = e.target.value;
+    setTelefones(values);
+  };
+
+  const onInputChangeEndereco = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const values: Array<any> = [...enderecos];
+    values[index][e.target.name] = e.target.value;
+    setEnderecos(values);
+  };
+
+  const onInputChangeEmail = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const values: Array<any> = [...emails];
+    values[index][e.target.name] = e.target.value;
+    setEnderecos(values);
   };
 
   const handleTelefoneAdd = () => {
@@ -142,6 +222,43 @@ const EditarCliente: React.FC = () => {
     const list = [...telefones];
     list.splice(index, 1);
     setTelefones(list);
+  };
+
+  const handleEnderecoAdd = () => {
+    setEnderecos([
+      ...enderecos,
+      {
+        enderecoId: '',
+        logradouro: '',
+        bairro: '',
+        cidade: '',
+        uf: '',
+        clienteId: '',
+      },
+    ]);
+  };
+
+  const handleEnderecoRemove = (index: any) => {
+    const list = [...enderecos];
+    list.splice(index, 1);
+    setEnderecos(list);
+  };
+
+  const handleEmailAdd = () => {
+    setEmails([
+      ...emails,
+      {
+        emailId: '',
+        email: '',
+        clienteId: '',
+      },
+    ]);
+  };
+
+  const handleEmailRemove = (index: any) => {
+    const list = [...emails];
+    list.splice(index, 1);
+    setEmails(list);
   };
 
   useEffect(() => {
@@ -275,7 +392,9 @@ const EditarCliente: React.FC = () => {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => resquestDelete(telefone.telefoneId)}
+                    onClick={() =>
+                      resquestDeleteTelefoneTelefone(telefone.telefoneId)
+                    }
                   >
                     Excluir
                   </button>

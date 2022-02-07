@@ -11,10 +11,15 @@ namespace cadastro.service.Interfaces
     Task<ClienteDTOInsert> ClienteInsert(ClienteDTOInsert clienteEntity);
     Task<ClienteDTO> ClienteUpdate(ClienteDTO clienteDTO);
     Task<bool> ClienteDelete(int Id);
-    Task<EnderecoDTO> EnderecoInsert(EnderecoDTO enderecoEntity);
+    Task<EnderecoDTOInsert> EnderecoInsert(EnderecoDTOInsert enderecoEntity);
+    Task<List<EnderecoDTO>> EnderecosGetAllByIdCliente(int Id);
+    Task<bool> EnderecoDelete(int id);
     Task<List<TelefoneDTO>> TelefoneGetAll();
     Task<List<TelefoneDTO>> TelefonesGetAllByIdCliente(int Id);
-    Task<TelefoneDTO> TelefoneInsert(TelefoneDTO telefoneEntity);
+    Task<TelefoneDTOInsert> TelefoneInsert(TelefoneDTOInsert telefoneEntity);
     Task<bool> TelefoneDelete(int id);
+    Task<List<EmailDTO>> EmailsGetAllByIdCliente(int Id);
+    Task<EmailDTOInsert> EmailInsert(EmailDTOInsert emailEntity);
+    Task<bool> EmailDelete(int id);
   }
 }

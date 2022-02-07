@@ -120,14 +120,53 @@ namespace cadastro.api.Controllers
     }
 
     [HttpPost("v1/cadastroendereco")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(EnderecoDTO))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(EnderecoDTOInsert))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
-    public async Task<ActionResult> CadastroEndereco(EnderecoDTO model)
+    public async Task<ActionResult> CadastroEndereco(EnderecoDTOInsert model)
     {
       try
       {
         var result = await this._cadastroService.EnderecoInsert(model);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+    [HttpGet("v1/enderecosGetAllByIdCliente/{id}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> EnderecosGetAllByIdCliente(int id)
+    {
+      try
+      {
+        var result = await this._cadastroService.EnderecosGetAllByIdCliente(id);
+        if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+    [HttpDelete("v1/enderecoDelete/{userid}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Deletado com Sucesso", typeof(bool))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> EnderecoDelete(int userid)
+    {
+      try
+      {
+        var result = await this._cadastroService.EnderecoDelete(userid);
+
+        if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
 
         return this.StatusCode(StatusCodes.Status200OK, result);
       }
@@ -176,10 +215,10 @@ namespace cadastro.api.Controllers
     }
 
     [HttpPost("v1/cadastrotelefone")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(TelefoneDTO))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(TelefoneDTOInsert))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
-    public async Task<ActionResult> CadastroTelefone(List<TelefoneDTO> model)
+    public async Task<ActionResult> CadastroTelefone(List<TelefoneDTOInsert> model)
     {
       try
       {
@@ -205,6 +244,70 @@ namespace cadastro.api.Controllers
       try
       {
         var result = await this._cadastroService.TelefoneDelete(userid);
+
+        if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+
+
+
+
+    [HttpGet("v1/emailsGetAllByIdCliente/{id}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Sucesso", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> EmailsGetAllByIdCliente(int id)
+    {
+      try
+      {
+        var result = await this._cadastroService.EmailsGetAllByIdCliente(id);
+        if (result == null) return this.StatusCode(StatusCodes.Status204NoContent);
+
+        return this.StatusCode(StatusCodes.Status200OK, result);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+    [HttpPost("v1/cadastroemail")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(EmailDTOInsert))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> CadastroEmail(List<EmailDTOInsert> model)
+    {
+      try
+      {
+        foreach (var item in model)
+        {
+          var result = await this._cadastroService.EmailInsert(item);
+        }
+
+        return this.StatusCode(StatusCodes.Status200OK, model);
+      }
+      catch (Exception ex)
+      {
+        return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+      }
+    }
+
+    [HttpDelete("v1/emaildelete/{userid}")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Deletado com Sucesso", typeof(bool))]
+    [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
+    public async Task<ActionResult> EmailDelete(int userid)
+    {
+      try
+      {
+        var result = await this._cadastroService.EmailDelete(userid);
 
         if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
 

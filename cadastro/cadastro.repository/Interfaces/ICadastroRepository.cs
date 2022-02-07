@@ -12,9 +12,14 @@ namespace cadastro.repository.Interfaces
     Task<Cliente> ClienteUpdate(Cliente clienteEntity);
     Task<bool> ClienteDelete(int id);
     Task<Endereco> EnderecoInsert(Endereco enderecoEntity);
+    Task<List<Endereco>> EnderecosGetAllByIdCliente(int Id);
+    Task<bool> EnderecoDelete(int id);
     Task<List<Telefone>> TelefoneGetAll();
     Task<List<Telefone>> TelefonesGetAllByIdCliente(int Id);
     Task<Telefone> TelefoneInsert(Telefone telefoneEntity);
     Task<bool> TelefoneDelete(int id);
+    Task<List<Email>> EmailsGetAllByIdCliente(int Id);
+    Task<Email> EmailInsert(Email emailEntity);
+    Task<bool> EmailDelete(int id);
   }
 }

@@ -83,6 +83,36 @@ ALTER TABLE [dbo].[Telefone] CHECK CONSTRAINT [Fk_Telefone_Cliente]
 GO
 
 
+USE [Cadastro]
+GO
+
+/****** Object:  Table [dbo].[Email]    Script Date: 07/02/2022 01:14:39 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Email](
+	[EmailId] [int] IDENTITY(1,1) NOT NULL,
+	[_Email] [varchar](100) NOT NULL,
+	[ClienteId] [int] NOT NULL,
+ CONSTRAINT [PK__Email__7ED91ACF0C234F19] PRIMARY KEY CLUSTERED 
+(
+	[EmailId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Email]  WITH CHECK ADD  CONSTRAINT [FK_Email_Cliente] FOREIGN KEY([ClienteId])
+REFERENCES [dbo].[Cliente] ([ClienteId])
+GO
+
+ALTER TABLE [dbo].[Email] CHECK CONSTRAINT [FK_Email_Cliente]
+GO
+
+
+
 
 PROCEDURES:
 
@@ -239,6 +269,25 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE procedure [dbo].[EnderecosGetAllByIdCliente]
+(
+	@ClienteId int
+)
+as
+begin
+	select t1.* from Endereco (nolock) t1
+	where ClienteId = @ClienteId
+end
+GO
+
 
 
 CREATE procedure [dbo].[EnderecoDelete]
@@ -337,5 +386,80 @@ begin
 	where TelefoneId = @TelefoneId
 end
 GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE procedure [dbo].[EmailsGetAllByIdCliente]
+(
+	@ClienteId int
+)
+as
+begin
+	select t1.* from Email (nolock) t1
+	where ClienteId = @ClienteId
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE procedure [dbo].[EmailInsert]
+(
+	@_Email varchar(100),
+	@ClienteId int
+)
+as
+begin
+	declare @EmailId bigint = null
+
+    insert into dbo.Email(EmailId, _Email, ClienteId)
+	values(@ClienteId, @_Email, @ClienteId)
+
+	set @EmailId = SCOPE_IDENTITY()
+
+	select
+		t1.*
+	 from Email (nolock) t1
+	 where
+		t1.EmailId = @EmailId
+end
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE procedure [dbo].[EmailDelete]
+(
+	@EmailId int
+)
+as
+begin
+	delete from Email
+	where EmailId = @EmailId
+end
+GO
+
+
+
+
+
 
 
