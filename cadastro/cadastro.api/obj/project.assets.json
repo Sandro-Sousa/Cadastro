@@ -2110,24 +2110,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sandr\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\sandro.oliveira\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
+      "projectUniqueName": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
       "projectName": "cadastro.api",
-      "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
-      "packagesPath": "C:\\Users\\Sandr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.api\\obj\\",
+      "projectPath": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.api\\cadastro.api.csproj",
+      "packagesPath": "C:\\Users\\sandro.oliveira\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Sandr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\sandro.oliveira\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2141,11 +2140,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
-              "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
+            "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj": {
+              "projectPath": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.cross\\cadastro.cross.csproj"
             },
-            "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj": {
-              "projectPath": "C:\\Users\\Sandr\\OneDrive\\Desktop\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj"
+            "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj": {
+              "projectPath": "C:\\Users\\sandro.oliveira\\Documents\\Cadastro\\cadastro\\cadastro.service\\cadastro.service.csproj"
             }
           }
         }
@@ -2211,7 +2210,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

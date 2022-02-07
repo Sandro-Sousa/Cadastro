@@ -145,6 +145,33 @@ const EditarCliente: React.FC = () => {
       });
   };
 
+  const resquestDeleteEmail = async (id: any) => {
+    await axios
+      .delete(baseUrlEmailDelete + '/' + id)
+      .then((response) => {
+        setEmail(
+          email.filter((email) => email.emailId !== response.data),
+        );
+        emailsGetAllByIdCliente();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const emailsGetAllByIdCliente = async () => {
+    await axios
+      .get(
+        `https://localhost:5001/api/cadastro/v1/emailsGetAllByIdCliente/${id}`,
+      )
+      .then((response) => {
+        setEmail(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const onSubmit = async () => {
     await axios
       .put(
@@ -169,6 +196,30 @@ const EditarCliente: React.FC = () => {
         console.log(JSON.stringify(telefones));
       });
     telefonesGetAllByIdCliente();
+    await axios
+      .post(
+        'https://localhost:5001/api/cadastro/v1/cadastroendereco',
+        enderecos,
+      )
+      .then((response) => {
+        console.log(JSON.stringify(enderecos));
+      })
+      .catch((response) => {
+        console.log(JSON.stringify(enderecos));
+      });
+    enderecosGetAllByIdCliente();
+    await axios
+      .post(
+        'https://localhost:5001/api/cadastro/v1/cadastroemail',
+        emails,
+      )
+      .then((response) => {
+        console.log(JSON.stringify(emails));
+      })
+      .catch((response) => {
+        console.log(JSON.stringify(emails));
+      });
+      emailsGetAllByIdCliente();
   };
 
   const {
@@ -211,7 +262,7 @@ const EditarCliente: React.FC = () => {
   ) => {
     const values: Array<any> = [...emails];
     values[index][e.target.name] = e.target.value;
-    setEnderecos(values);
+    setEmails(values);
   };
 
   const handleTelefoneAdd = () => {
@@ -264,6 +315,7 @@ const EditarCliente: React.FC = () => {
   useEffect(() => {
     clienteGetById();
     telefonesGetAllByIdCliente();
+    enderecosGetAllByIdCliente();
   }, []);
 
   return (
@@ -374,13 +426,131 @@ const EditarCliente: React.FC = () => {
             </div>
           ))}
           <br />
+          <h4 className="text-center mb-4">Endereco</h4>
+          {enderecos.map((enderecosService, index) => (
+            <div key={index}>
+              <div className="form-group">
+                <br />
+                <input
+                  type="hidden"
+                  readOnly
+                  className="form-control form-control-lg"
+                  name="clienteId"
+                  value={(enderecosService.clienteId = id)}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
+                <br />
+                <input
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Insira seu logradouro"
+                  name="logradouro"
+                  value={enderecosService.logradouro}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
+                <br />
+                <input
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Insira seu Bairro"
+                  name="bairro"
+                  value={enderecosService.bairro}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
+                 <br />
+                <input
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Insira sua Cidade"
+                  name="cidade"
+                  value={enderecosService.cidade}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
+                 <br />
+                <input
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Insira seu UF"
+                  name="uf"
+                  value={enderecosService.uf}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
+              </div>
+              <br />
+              {enderecos.length - 1 === index && enderecos.length && (
+                <button
+                  type="button"
+                  onClick={handleEnderecoAdd}
+                  className="btn btn-success"
+                >
+                  <span>+</span>
+                </button>
+              )}{' '}
+              {enderecos.length !== 1 && (
+                <button
+                  type="button"
+                  onClick={() => handleEnderecoRemove(index)}
+                  className="btn btn-success"
+                >
+                  <span>-</span>
+                </button>
+              )}
+            </div>
+          ))}
+          <br />
+          <h4 className="text-center mb-4">Email</h4>
+          {emails.map((emailsService, index) => (
+            <div key={index}>
+              <div className="form-group">
+                <br />
+                <input
+                  type="hidden"
+                  readOnly
+                  className="form-control form-control-lg"
+                  name="clienteId"
+                  value={(emailsService.clienteId = id)}
+                  onChange={(e) => onInputChangeEmail(index, e)}
+                />
+                <br />
+                <input
+                  type="text"
+                  className="form-control form-control-lg"
+                  placeholder="Insira seu Email"
+                  name="email"
+                  value={emailsService.email}
+                  onChange={(e) => onInputChangeEmail(index, e)}
+                />
+                 <br />
+              </div>
+              <br />
+              {emails.length - 1 === index && emails.length && (
+                <button
+                  type="button"
+                  onClick={handleEmailAdd}
+                  className="btn btn-success"
+                >
+                  <span>+</span>
+                </button>
+              )}{' '}
+              {emails.length !== 1 && (
+                <button
+                  type="button"
+                  onClick={() => handleEmailRemove(index)}
+                  className="btn btn-success"
+                >
+                  <span>-</span>
+                </button>
+              )}
+            </div>
+          ))}
+          <br />
           <button className="btn btn-warning btn-block">Atualizar</button>{' '}
           <Link to="/">
             <button className="btn btn-success ml-1">Voltar</button>
           </Link>
         </form>
         <br />
-        <h4 className="text-center mb-4">Lista de Telefones:</h4>
+        <h4 className="text-center mb-4">Lista:</h4>
         <table className="table table-bordered table-striped">
           <tbody>
             {data.map((telefone) => (
@@ -394,6 +564,43 @@ const EditarCliente: React.FC = () => {
                     className="btn btn-danger"
                     onClick={() =>
                       resquestDeleteTelefoneTelefone(telefone.telefoneId)
+                    }
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            ))}
+             {endereco.map((endereco) => (
+              <tr key={endereco.enderecoId}>
+                <td>{endereco.enderecoId}</td>
+                <td>{endereco.clienteId}</td>
+                <td>{endereco.logradouro}</td>
+                <td>{endereco.bairro}</td>
+                <td>{endereco.cidade}</td>
+                <td>{endereco.uf}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() =>
+                      resquestDeleteTelefoneTelefone(endereco.enderecoId)
+                    }
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {email.map((email) => (
+              <tr key={email.emailId}>
+                <td>{email.emailId}</td>
+                <td>{email.email}</td>
+                <td>{email.clienteId}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() =>
+                      resquestDeleteEmail(email.emailId)
                     }
                   >
                     Excluir
