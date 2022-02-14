@@ -123,13 +123,15 @@ namespace cadastro.api.Controllers
     [SwaggerResponse(StatusCodes.Status200OK, "Cadastrado com Sucesso", typeof(EnderecoDTOInsert))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
-    public async Task<ActionResult> CadastroEndereco(EnderecoDTOInsert model)
+    public async Task<ActionResult> CadastroEndereco(List<EnderecoDTOInsert> model)
     {
       try
       {
-        var result = await this._cadastroService.EnderecoInsert(model);
-
-        return this.StatusCode(StatusCodes.Status200OK, result);
+        foreach (var item in model)
+        {
+          var result = await this._cadastroService.EnderecoInsert(item);
+        }
+        return this.StatusCode(StatusCodes.Status200OK, model);
       }
       catch (Exception ex)
       {

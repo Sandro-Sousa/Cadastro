@@ -48,8 +48,8 @@ const EditarCliente: React.FC = () => {
     'https://localhost:5001/api/cadastro/v1/emaildelete';
 
   const [data, setData] = useState<ITelefone[]>([]);
-  const [endereco, setEndereco] = useState<IEndereco[]>([]);
-  const [email, setEmail] = useState<IEmail[]>([]);
+  const [enderecoData, setEnderecoData] = useState<IEndereco[]>([]);
+  const [emailData, setEmailData] = useState<IEmail[]>([]);
 
   const [cliente, setCliente] = useState({
     clienteId: '',
@@ -67,7 +67,6 @@ const EditarCliente: React.FC = () => {
 
   const [enderecos, setEnderecos] = useState([
     {
-      enderecoId: '',
       logradouro: '',
       bairro: '',
       cidade: '',
@@ -78,7 +77,6 @@ const EditarCliente: React.FC = () => {
 
   const [emails, setEmails] = useState([
     {
-      emailId: '',
       email: '',
       clienteId: '',
     },
@@ -122,8 +120,10 @@ const EditarCliente: React.FC = () => {
     await axios
       .delete(baseUrlEnderecoDelete + '/' + id)
       .then((response) => {
-        setEndereco(
-          endereco.filter((endereco) => endereco.enderecoId !== response.data),
+        setEnderecoData(
+          enderecoData.filter(
+            (endereco) => endereco.enderecoId !== response.data,
+          ),
         );
         telefonesGetAllByIdCliente();
       })
@@ -138,7 +138,7 @@ const EditarCliente: React.FC = () => {
         `https://localhost:5001/api/cadastro/v1/enderecosGetAllByIdCliente/${id}`,
       )
       .then((response) => {
-        setEndereco(response.data);
+        setEnderecoData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -149,8 +149,8 @@ const EditarCliente: React.FC = () => {
     await axios
       .delete(baseUrlEmailDelete + '/' + id)
       .then((response) => {
-        setEmail(
-          email.filter((email) => email.emailId !== response.data),
+        setEmailData(
+          emailData.filter((email) => email.emailId !== response.data),
         );
         emailsGetAllByIdCliente();
       })
@@ -165,7 +165,7 @@ const EditarCliente: React.FC = () => {
         `https://localhost:5001/api/cadastro/v1/emailsGetAllByIdCliente/${id}`,
       )
       .then((response) => {
-        setEmail(response.data);
+        setEmailData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -198,7 +198,7 @@ const EditarCliente: React.FC = () => {
     telefonesGetAllByIdCliente();
     await axios
       .post(
-        'https://localhost:5001/api/cadastro/v1/cadastroendereco',
+        'https://localhost:5001/api/cadastro/v1/cadastroEndereco',
         enderecos,
       )
       .then((response) => {
@@ -209,17 +209,14 @@ const EditarCliente: React.FC = () => {
       });
     enderecosGetAllByIdCliente();
     await axios
-      .post(
-        'https://localhost:5001/api/cadastro/v1/cadastroemail',
-        emails,
-      )
+      .post('https://localhost:5001/api/cadastro/v1/cadastroemail', emails)
       .then((response) => {
         console.log(JSON.stringify(emails));
       })
       .catch((response) => {
         console.log(JSON.stringify(emails));
       });
-      emailsGetAllByIdCliente();
+    emailsGetAllByIdCliente();
   };
 
   const {
@@ -279,7 +276,6 @@ const EditarCliente: React.FC = () => {
     setEnderecos([
       ...enderecos,
       {
-        enderecoId: '',
         logradouro: '',
         bairro: '',
         cidade: '',
@@ -299,7 +295,6 @@ const EditarCliente: React.FC = () => {
     setEmails([
       ...emails,
       {
-        emailId: '',
         email: '',
         clienteId: '',
       },
@@ -316,6 +311,7 @@ const EditarCliente: React.FC = () => {
     clienteGetById();
     telefonesGetAllByIdCliente();
     enderecosGetAllByIdCliente();
+    emailsGetAllByIdCliente();
   }, []);
 
   return (
@@ -432,15 +428,6 @@ const EditarCliente: React.FC = () => {
               <div className="form-group">
                 <br />
                 <input
-                  type="hidden"
-                  readOnly
-                  className="form-control form-control-lg"
-                  name="clienteId"
-                  value={(enderecosService.clienteId = id)}
-                  onChange={(e) => onInputChangeEndereco(index, e)}
-                />
-                <br />
-                <input
                   type="text"
                   className="form-control form-control-lg"
                   placeholder="Insira seu logradouro"
@@ -457,7 +444,7 @@ const EditarCliente: React.FC = () => {
                   value={enderecosService.bairro}
                   onChange={(e) => onInputChangeEndereco(index, e)}
                 />
-                 <br />
+                <br />
                 <input
                   type="text"
                   className="form-control form-control-lg"
@@ -466,7 +453,7 @@ const EditarCliente: React.FC = () => {
                   value={enderecosService.cidade}
                   onChange={(e) => onInputChangeEndereco(index, e)}
                 />
-                 <br />
+                <br />
                 <input
                   type="text"
                   className="form-control form-control-lg"
@@ -475,8 +462,16 @@ const EditarCliente: React.FC = () => {
                   value={enderecosService.uf}
                   onChange={(e) => onInputChangeEndereco(index, e)}
                 />
+                <br />
+                <input
+                  type="hidden"
+                  readOnly
+                  className="form-control form-control-lg"
+                  name="clienteId"
+                  value={(enderecosService.clienteId = id)}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
               </div>
-              <br />
               {enderecos.length - 1 === index && enderecos.length && (
                 <button
                   type="button"
@@ -520,7 +515,7 @@ const EditarCliente: React.FC = () => {
                   value={emailsService.email}
                   onChange={(e) => onInputChangeEmail(index, e)}
                 />
-                 <br />
+                <br />
               </div>
               <br />
               {emails.length - 1 === index && emails.length && (
@@ -571,27 +566,25 @@ const EditarCliente: React.FC = () => {
                 </td>
               </tr>
             ))}
-             {endereco.map((endereco) => (
+            {enderecoData.map((endereco) => (
               <tr key={endereco.enderecoId}>
                 <td>{endereco.enderecoId}</td>
-                <td>{endereco.clienteId}</td>
                 <td>{endereco.logradouro}</td>
                 <td>{endereco.bairro}</td>
                 <td>{endereco.cidade}</td>
                 <td>{endereco.uf}</td>
+                <td>{endereco.clienteId}</td>
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() =>
-                      resquestDeleteTelefoneTelefone(endereco.enderecoId)
-                    }
+                    onClick={() => resquestDeleteEndereco(endereco.enderecoId)}
                   >
                     Excluir
                   </button>
                 </td>
               </tr>
             ))}
-            {email.map((email) => (
+            {emailData.map((email) => (
               <tr key={email.emailId}>
                 <td>{email.emailId}</td>
                 <td>{email.email}</td>
@@ -599,9 +592,7 @@ const EditarCliente: React.FC = () => {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() =>
-                      resquestDeleteEmail(email.emailId)
-                    }
+                    onClick={() => resquestDeleteEmail(email.emailId)}
                   >
                     Excluir
                   </button>
