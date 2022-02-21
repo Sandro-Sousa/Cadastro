@@ -16,6 +16,7 @@ namespace cadastro.service.Helpers
       CreateMap<Telefone, TelefoneDTO>().ReverseMap();
       CreateMap<Telefone, TelefoneDTOInsert>().ReverseMap();
       CreateMap<Email, EmailDTOInsert>().ReverseMap();
+      CreateMap<Email, EmailDTO>().ReverseMap();
     }
   }
 }

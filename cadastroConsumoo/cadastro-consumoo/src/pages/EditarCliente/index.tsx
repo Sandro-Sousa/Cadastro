@@ -23,7 +23,7 @@ interface ITelefone {
 }
 
 interface IEndereco {
-  enderecoId: number;
+  EnderecoId: number;
   logradouro: string;
   bairro: string;
   cidade: string;
@@ -33,7 +33,7 @@ interface IEndereco {
 
 interface IEmail {
   emailId: number;
-  email: string;
+  _Email: string;
   clienteId: number;
 }
 
@@ -67,6 +67,7 @@ const EditarCliente: React.FC = () => {
 
   const [enderecos, setEnderecos] = useState([
     {
+      EnderecoId: '',
       logradouro: '',
       bairro: '',
       cidade: '',
@@ -77,7 +78,7 @@ const EditarCliente: React.FC = () => {
 
   const [emails, setEmails] = useState([
     {
-      email: '',
+      _Email: '',
       clienteId: '',
     },
   ]);
@@ -122,10 +123,10 @@ const EditarCliente: React.FC = () => {
       .then((response) => {
         setEnderecoData(
           enderecoData.filter(
-            (endereco) => endereco.enderecoId !== response.data,
+            (endereco) => endereco.EnderecoId !== response.data,
           ),
         );
-        telefonesGetAllByIdCliente();
+        enderecosGetAllByIdCliente();
       })
       .catch((error) => {
         console.log(error);
@@ -149,6 +150,7 @@ const EditarCliente: React.FC = () => {
     await axios
       .delete(baseUrlEmailDelete + '/' + id)
       .then((response) => {
+        console.log(JSON.stringify(response));
         setEmailData(
           emailData.filter((email) => email.emailId !== response.data),
         );
@@ -276,6 +278,7 @@ const EditarCliente: React.FC = () => {
     setEnderecos([
       ...enderecos,
       {
+        EnderecoId: '',
         logradouro: '',
         bairro: '',
         cidade: '',
@@ -295,7 +298,7 @@ const EditarCliente: React.FC = () => {
     setEmails([
       ...emails,
       {
-        email: '',
+        _Email: '',
         clienteId: '',
       },
     ]);
@@ -511,8 +514,8 @@ const EditarCliente: React.FC = () => {
                   type="text"
                   className="form-control form-control-lg"
                   placeholder="Insira seu Email"
-                  name="email"
-                  value={emailsService.email}
+                  name="_Email"
+                  value={emailsService._Email}
                   onChange={(e) => onInputChangeEmail(index, e)}
                 />
                 <br />
@@ -567,8 +570,8 @@ const EditarCliente: React.FC = () => {
               </tr>
             ))}
             {enderecoData.map((endereco) => (
-              <tr key={endereco.enderecoId}>
-                <td>{endereco.enderecoId}</td>
+              <tr key={endereco.EnderecoId}>
+                <td>{endereco.EnderecoId}</td>
                 <td>{endereco.logradouro}</td>
                 <td>{endereco.bairro}</td>
                 <td>{endereco.cidade}</td>
@@ -577,7 +580,7 @@ const EditarCliente: React.FC = () => {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => resquestDeleteEndereco(endereco.enderecoId)}
+                    onClick={() => resquestDeleteEndereco(endereco.EnderecoId)}
                   >
                     Excluir
                   </button>
@@ -587,7 +590,7 @@ const EditarCliente: React.FC = () => {
             {emailData.map((email) => (
               <tr key={email.emailId}>
                 <td>{email.emailId}</td>
-                <td>{email.email}</td>
+                <td>{email._Email}</td>
                 <td>{email.clienteId}</td>
                 <td>
                   <button
