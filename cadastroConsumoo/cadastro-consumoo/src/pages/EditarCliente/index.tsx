@@ -2,40 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import inputs from "./inputs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-interface IParam {
-  id: string;
-}
-
-type Inputs = {
-  nome: string;
-  cpf: string;
-  ddd: string;
-  numero: string;
-};
-
-interface ITelefone {
-  telefoneId: number;
-  clienteId: number;
-  ddd: string;
-  numero: string;
-}
-
-interface IEndereco {
-  EnderecoId: number;
-  logradouro: string;
-  bairro: string;
-  cidade: string;
-  uf: string;
-  clienteId: number;
-}
-
-interface IEmail {
-  emailId: number;
-  _Email: string;
-  clienteId: number;
-}
 
 const EditarCliente: React.FC = () => {
   const baseUrlTelefoneDelete =
@@ -67,7 +36,6 @@ const EditarCliente: React.FC = () => {
 
   const [enderecos, setEnderecos] = useState([
     {
-      EnderecoId: '',
       logradouro: '',
       bairro: '',
       cidade: '',
@@ -121,6 +89,7 @@ const EditarCliente: React.FC = () => {
     await axios
       .delete(baseUrlEnderecoDelete + '/' + id)
       .then((response) => {
+        console.log(JSON.stringify(response));
         setEnderecoData(
           enderecoData.filter(
             (endereco) => endereco.EnderecoId !== response.data,
@@ -278,7 +247,6 @@ const EditarCliente: React.FC = () => {
     setEnderecos([
       ...enderecos,
       {
-        EnderecoId: '',
         logradouro: '',
         bairro: '',
         cidade: '',
@@ -431,6 +399,15 @@ const EditarCliente: React.FC = () => {
               <div className="form-group">
                 <br />
                 <input
+                  type="hidden"
+                  readOnly
+                  className="form-control form-control-lg"
+                  name="clienteId"
+                  value={(enderecosService.clienteId = id)}
+                  onChange={(e) => onInputChangeEndereco(index, e)}
+                />
+                <br />
+                <input
                   type="text"
                   className="form-control form-control-lg"
                   placeholder="Insira seu logradouro"
@@ -466,14 +443,6 @@ const EditarCliente: React.FC = () => {
                   onChange={(e) => onInputChangeEndereco(index, e)}
                 />
                 <br />
-                <input
-                  type="hidden"
-                  readOnly
-                  className="form-control form-control-lg"
-                  name="clienteId"
-                  value={(enderecosService.clienteId = id)}
-                  onChange={(e) => onInputChangeEndereco(index, e)}
-                />
               </div>
               {enderecos.length - 1 === index && enderecos.length && (
                 <button

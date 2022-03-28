@@ -158,15 +158,15 @@ namespace cadastro.api.Controllers
       }
     }
 
-    [HttpDelete("v1/enderecoDelete/{userid}")]
+    [HttpDelete("v1/enderecoDelete/{id}")]
     [SwaggerResponse(StatusCodes.Status200OK, "Deletado com Sucesso", typeof(bool))]
     [SwaggerResponse(StatusCodes.Status204NoContent, "Dados do Cabeçalho incorretos", typeof(string))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro no Servidor", typeof(string))]
-    public async Task<ActionResult> EnderecoDelete(int userid)
+    public async Task<ActionResult> EnderecoDelete(int id)
     {
       try
       {
-        var result = await this._cadastroService.EnderecoDelete(userid);
+        var result = await this._cadastroService.EnderecoDelete(id);
 
         if (result == false) return this.StatusCode(StatusCodes.Status204NoContent);
 
